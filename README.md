@@ -59,8 +59,8 @@ Deploy        Vercel
 
 ```bash
 # 1. Clone
-git clone https://github.com/skayy47/skay-project-.git
-cd skay-project-/portfolio
+git clone https://github.com/skayy47/portfolio.git
+cd portfolio
 
 # 2. Install
 npm install

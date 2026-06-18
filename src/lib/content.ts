@@ -35,7 +35,7 @@ export const PROJECT_BASE: ProjectBase[] = [
   {
     id: "nexus",
     index: "02",
-    tech: ["FastAPI", "Next.js", "LangChain", "pgvector", "Gemini", "Supabase"],
+    tech: ["FastAPI", "Next.js", "LangChain", "pgvector", "Groq", "Supabase"],
     liveUrl: "https://nexussss-two.vercel.app",
     codeUrl: "https://github.com/skayy47/nexus",
     poster: "/cinematics/nexus.png",

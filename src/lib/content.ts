@@ -188,7 +188,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
         kicker: "Universal Data Engine",
         tagline: "Ingest any file → clean → explore → AI chat → branded report. Five minutes, not five hours.",
         description:
-          "A full-stack data intelligence platform. Drop any CSV, XLSX, JSON or Parquet and AURA infers what each column actually is — identifier, measure, dimension, temporal — runs an 8-step cleaning pipeline, builds an archetype-aware explore, answers grounded questions in EN/FR, and exports a branded PDF report.",
+          "A full-stack data intelligence platform. Drop any CSV, XLSX, JSON or Parquet and AURA infers what each column actually is — identifier, measure, dimension, temporal — runs an 8-step cleaning pipeline, builds an archetype-aware explore, answers grounded questions in EN/FR, and exports a fully bilingual (EN/FR) branded PDF report — labels, AI executive summary, insights, charts, and number/date formatting all follow the locale.",
         signature: [
           "Semantic column-role inference — knows an identifier from a measure",
           "Multi-provider AI cascade — Gemini → Groq → OpenAI → Claude, silent auto-fallback",
@@ -386,7 +386,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
         kicker: "Moteur de Données Universel",
         tagline: "Importez n’importe quel fichier → nettoyage → exploration → chat IA → rapport de marque. Cinq minutes, pas cinq heures.",
         description:
-          "Une plateforme d’intelligence des données full-stack. Déposez un CSV, XLSX, JSON ou Parquet et AURA déduit ce qu’est réellement chaque colonne — identifiant, mesure, dimension, temporel — exécute un pipeline de nettoyage en 8 étapes, construit une exploration adaptée, répond à des questions ancrées en EN/FR et exporte un rapport PDF de marque.",
+          "Une plateforme d’intelligence des données full-stack. Déposez un CSV, XLSX, JSON ou Parquet et AURA déduit ce qu’est réellement chaque colonne — identifiant, mesure, dimension, temporel — exécute un pipeline de nettoyage en 8 étapes, construit une exploration adaptée, répond à des questions ancrées en EN/FR et exporte un rapport PDF de marque entièrement bilingue EN/FR — libellés, résumé exécutif IA, constats, graphiques et formats de nombres/dates suivent la langue.",
         signature: [
           "Inférence sémantique des rôles de colonnes — distingue un identifiant d’une mesure",
           "Cascade IA multi-fournisseurs — Gemini → Groq → OpenAI → Claude, bascule silencieuse",

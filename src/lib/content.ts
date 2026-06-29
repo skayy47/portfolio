@@ -309,11 +309,11 @@ export const CONTENT: Record<Locale, SiteContent> = {
       {
         id: "credit",
         name: "Credit Risk Prediction",
-        kicker: "Production ML + Basel III",
+        kicker: "Production ML · Calibrated PD",
         blurb:
-          "Default-risk scoring on 307K applicants — LightGBM, SHAP explainability, ROC curve, Gini coefficient, KS statistic, and an interactive threshold simulator. Config-driven CLI pipeline with 8 pytest tests. Not a notebook: a regulatory-grade scoring engine.",
-        metric: "0.759 AUC · Gini 0.519 · KS 0.578",
-        tech: ["LightGBM", "SHAP", "scikit-learn", "Streamlit", "Plotly"],
+          "Default-risk scoring on 307K applicants — LightGBM on 153 features (31 engineered from the bureau / credit-history tables), SHAP explainability, isotonic-calibrated probabilities, Gini/KS metrics, and an interactive threshold simulator. Config-driven CLI pipeline with 19 pytest tests. Not a notebook: a validated, calibrated scoring engine.",
+        metric: "0.775 AUC · Gini 0.550 · calibrated Brier 0.067",
+        tech: ["LightGBM", "SHAP", "Optuna", "scikit-learn", "Streamlit"],
         liveUrl: "https://credit-risk-prediction-skay.streamlit.app",
         codeUrl: "https://github.com/skayy47/credit-risk-prediction",
       },
@@ -507,11 +507,11 @@ export const CONTENT: Record<Locale, SiteContent> = {
       {
         id: "credit",
         name: "Prédiction du risque de crédit",
-        kicker: "ML de production + Bâle III",
+        kicker: "ML de production · PD calibrée",
         blurb:
-          "Scoring du risque de défaut sur 307K demandes — LightGBM, SHAP, courbe ROC, coefficient de Gini, statistique KS et simulateur de seuil interactif. Pipeline CLI config-driven avec 8 tests pytest. Pas un notebook : un moteur de scoring réglementaire déployé.",
-        metric: "0,759 AUC · Gini 0,519 · KS 0,578",
-        tech: ["LightGBM", "SHAP", "scikit-learn", "Streamlit", "Plotly"],
+          "Scoring du risque de défaut sur 307K demandes — LightGBM sur 153 variables (31 issues des tables bureau / historique de crédit), explicabilité SHAP, probabilités calibrées par isotonie, métriques Gini/KS et simulateur de seuil interactif. Pipeline CLI config-driven avec 19 tests pytest. Pas un notebook : un moteur de scoring validé et calibré.",
+        metric: "0,775 AUC · Gini 0,550 · Brier calibré 0,067",
+        tech: ["LightGBM", "SHAP", "Optuna", "scikit-learn", "Streamlit"],
         liveUrl: "https://credit-risk-prediction-skay.streamlit.app",
         codeUrl: "https://github.com/skayy47/credit-risk-prediction",
       },

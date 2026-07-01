@@ -212,7 +212,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
           "Auto-summary on upload — one-liner, 4 bullets, 3 clickable question chips",
           "15 document formats — PDF, DOCX, XLSX, PPTX, CSV, JSON and more",
         ],
-        metrics: ["145 tests", "15 formats", "Live"],
+        metrics: ["152 tests", "15 formats", "Live"],
       },
       maestro: {
         kicker: "Multi-Agent Command Center",
@@ -410,7 +410,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
           "Résumé auto à l’import — phrase clé, 4 bullets, 3 puces de questions cliquables",
           "15 formats de documents — PDF, DOCX, XLSX, PPTX, CSV, JSON et plus",
         ],
-        metrics: ["145 tests", "15 formats", "En ligne"],
+        metrics: ["152 tests", "15 formats", "En ligne"],
       },
       maestro: {
         kicker: "Centre de Commande Multi-Agents",

@@ -25,7 +25,7 @@ export const PROJECT_BASE: ProjectBase[] = [
     id: "aura",
     index: "01",
     tech: ["FastAPI", "Next.js", "Pandas", "Gemini", "Playwright", "TypeScript"],
-    liveUrl: "https://aura-skayy47s-projects.vercel.app",
+    liveUrl: "https://aura-sooty-five-27.vercel.app",
     codeUrl: "https://github.com/skayy47/AURA",
     poster: "/cinematics/aura.png",
     video: "/cinematics/aura.mp4",
@@ -73,7 +73,7 @@ export interface SiteContent {
     palette: string;
     langName: string;
   };
-  nav: { work: string; approach: string; journey: string; stack: string; contact: string; talk: string };
+  nav: { work: string; approach: string; journey: string; stack: string; services: string; contact: string; talk: string };
   hero: {
     roles: string[];
     title: { pre1: string; grad1: string; pre2: string; grad2: string };
@@ -138,7 +138,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
   /* ------------------------------------------------------------------ EN */
   en: {
     ui: { openLive: "Open live", source: "Source", live: "Live", liveDemo: "Live demo", palette: "Palette", langName: "EN" },
-    nav: { work: "Work", approach: "Approach", journey: "Journey", stack: "Stack", contact: "Contact", talk: "Let’s talk" },
+    nav: { work: "Work", approach: "Approach", journey: "Journey", stack: "Stack", services: "Services", contact: "Contact", talk: "Let’s talk" },
     hero: {
       roles: ["AI / ML ENGINEER", "BUILDER OF PRODUCTION AI"],
       title: { pre1: "I build ", grad1: "AI systems", pre2: "that survive ", grad2: "production." },
@@ -336,7 +336,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
   /* ------------------------------------------------------------------ FR */
   fr: {
     ui: { openLive: "Voir en ligne", source: "Code", live: "En ligne", liveDemo: "Démo live", palette: "Palette", langName: "FR" },
-    nav: { work: "Projets", approach: "Approche", journey: "Parcours", stack: "Stack", contact: "Contact", talk: "Discutons" },
+    nav: { work: "Projets", approach: "Approche", journey: "Parcours", stack: "Stack", services: "Services", contact: "Contact", talk: "Discutons" },
     hero: {
       roles: ["INGÉNIEUR IA / ML", "BÂTISSEUR D’IA EN PRODUCTION"],
       title: { pre1: "Je conçois des ", grad1: "systèmes d’IA", pre2: "taillés pour la ", grad2: "production." },

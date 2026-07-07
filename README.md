@@ -2,7 +2,7 @@
 
 > Production AI systems, live and clickable. Built with Next.js 16 · React 19 · Three.js · GSAP.
 
-[![Live](https://img.shields.io/badge/Live-skay.dev-6366F1?style=flat-square)](https://skay.dev)
+[![Live](https://img.shields.io/badge/Live-skay--portfolio.vercel.app-6366F1?style=flat-square)](https://skay-portfolio.vercel.app)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
@@ -151,7 +151,7 @@ Building production AI systems: RAG engines, multi-agent architectures, data pip
 
 - GitHub: [@skayy47](https://github.com/skayy47)
 - Email: oussamaiskia@gmail.com
-- Portfolio: [skay.dev](https://skay.dev)
+- Portfolio: [skay-portfolio.vercel.app](https://skay-portfolio.vercel.app)
 
 ---
 

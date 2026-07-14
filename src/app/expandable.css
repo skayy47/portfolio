@@ -1,0 +1,31 @@
+/* ------------------------------------------------------------------ *
+ *  Expandable — progressive-disclosure "Read more"
+ * ------------------------------------------------------------------ */
+
+.expandable {
+  display: flex;
+  flex-direction: column;
+}
+
+.expandable-inner {
+  padding-top: 2px;
+}
+
+.expandable-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent-ink);
+  transition: gap 0.24s var(--ease), opacity 0.24s var(--ease);
+}
+.expandable-toggle:hover {
+  gap: 9px;
+  opacity: 0.82;
+}

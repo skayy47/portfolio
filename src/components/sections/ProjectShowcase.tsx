@@ -5,6 +5,7 @@ import { useLang } from "@/components/providers/LangProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { LiveDemo } from "@/components/demos/LiveDemo";
+import { Expandable } from "@/components/ui/Expandable";
 
 const NAMES: Record<string, string> = { aura: "AURA", nexus: "nexus", maestro: "MAESTRO" };
 
@@ -63,14 +64,16 @@ export function ProjectShowcase({ base, flip }: { base: ProjectBase; flip: boole
         <p className="project-tagline">{t.tagline}</p>
         <p className="project-desc">{t.description}</p>
 
-        <ul className="signature">
-          {t.signature.map((s) => (
-            <li key={s}>
-              <span className="bullet-dot" />
-              <span>{s}</span>
-            </li>
-          ))}
-        </ul>
+        <Expandable>
+          <ul className="signature">
+            {t.signature.map((s) => (
+              <li key={s}>
+                <span className="bullet-dot" />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </Expandable>
 
         <div className="project-tech">
           {base.tech.map((tech) => (

@@ -6,8 +6,7 @@ export const IDENTITY = {
   location: "Casablanca, Morocco",
   socials: {
     github: "https://github.com/skayy47",
-    // TODO(SKAY): confirm real LinkedIn URL.
-    linkedin: "https://www.linkedin.com/in/oussama-skia",
+    linkedin: "https://www.linkedin.com/in/oussama-skia-b72387417",
     email: "mailto:oussamaiskia@gmail.com",
   },
 } as const;

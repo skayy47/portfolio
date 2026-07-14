@@ -5,6 +5,11 @@ export type Locale = "en" | "fr";
 export const LOCALES: Locale[] = ["en", "fr"];
 export const DEFAULT_LOCALE: Locale = "en";
 
+/** Reading lens — reframes the site for a business vs technical reader. */
+export type Lens = "business" | "technical";
+export const LENSES: Lens[] = ["business", "technical"];
+export const DEFAULT_LENS: Lens = "technical";
+
 export type ProjectId = "aura" | "nexus" | "maestro";
 
 /** Non-localized project facts. */
@@ -64,6 +69,13 @@ export interface JourneyStep {
   kind: "edu" | "pivot" | "now";
 }
 
+/** Per-lens hero copy. */
+export interface HeroLens {
+  roles: string[];
+  title: { pre1: string; grad1: string; pre2: string; grad2: string };
+  lines: string[];
+}
+
 export interface SiteContent {
   ui: {
     openLive: string;
@@ -72,12 +84,14 @@ export interface SiteContent {
     liveDemo: string;
     palette: string;
     langName: string;
+    lensLabel: string;
+    lensBusiness: string;
+    lensTechnical: string;
   };
   nav: { work: string; approach: string; journey: string; stack: string; services: string; contact: string; talk: string };
   hero: {
-    roles: string[];
-    title: { pre1: string; grad1: string; pre2: string; grad2: string };
-    lines: string[];
+    business: HeroLens;
+    technical: HeroLens;
     cta1: string;
     cta2: string;
     location: string;
@@ -130,6 +144,10 @@ export interface SiteContent {
   stats: { value: string; label: string }[];
   contact: { eyebrow: string; title: { pre: string; grad: string }; lead: string; cta: string };
   footer: { quote: string; built: string };
+  systemsMap: {
+    stages: { data: string; memory: string; agents: string };
+    nodes: Record<ProjectId, { role: string; thesis: string }>;
+  };
 }
 
 const STACK_GROUPS = (g: string[]) => g; // identity, keeps arrays terse
@@ -137,17 +155,37 @@ const STACK_GROUPS = (g: string[]) => g; // identity, keeps arrays terse
 export const CONTENT: Record<Locale, SiteContent> = {
   /* ------------------------------------------------------------------ EN */
   en: {
-    ui: { openLive: "Open live", source: "Source", live: "Live", liveDemo: "Live demo", palette: "Palette", langName: "EN" },
+    ui: { openLive: "Open live", source: "Source", live: "Live", liveDemo: "Live demo", palette: "Palette", langName: "EN", lensLabel: "View", lensBusiness: "Business", lensTechnical: "Technical" },
+    systemsMap: {
+      stages: { data: "DATA", memory: "MEMORY", agents: "AGENTS" },
+      nodes: {
+        aura: { role: "Data", thesis: "Wrangles any file format into clean, typed signal." },
+        nexus: { role: "Memory", thesis: "Production memory — retrieval that grounds, cites, and refuses." },
+        maestro: { role: "Agents", thesis: "Orchestrates multi-agent AI into verifiable deliverables." },
+      },
+    },
     nav: { work: "Work", approach: "Approach", journey: "Journey", stack: "Stack", services: "Services", contact: "Contact", talk: "Let’s talk" },
     hero: {
-      roles: ["AI / ML ENGINEER", "BUILDER OF PRODUCTION AI"],
-      title: { pre1: "I build ", grad1: "AI systems", pre2: "that survive ", grad2: "production." },
-      lines: [
-        "I build systems that survive production.",
-        "Multi-agent AI — real orchestration, not prompt chains.",
-        "RAG engines with memory, grounding, and honesty.",
-        "From raw data to real intelligence.",
-      ],
+      technical: {
+        roles: ["AI / ML ENGINEER", "BUILDER OF PRODUCTION AI"],
+        title: { pre1: "I build ", grad1: "AI systems", pre2: "that survive ", grad2: "production." },
+        lines: [
+          "I build systems that survive production.",
+          "Multi-agent AI — real orchestration, not prompt chains.",
+          "RAG engines with memory, grounding, and honesty.",
+          "From raw data to real intelligence.",
+        ],
+      },
+      business: {
+        roles: ["AI ENGINEER", "OUTCOMES, NOT DEMOS"],
+        title: { pre1: "I turn data into ", grad1: "AI", pre2: "that ", grad2: "earns its keep." },
+        lines: [
+          "Five-hour reports in five minutes.",
+          "Answers you can trust — with the source.",
+          "A mission in, a deliverable out.",
+          "Production-grade, not a research demo.",
+        ],
+      },
       cta1: "View the work",
       cta2: "Get in touch",
       location: "Casablanca → the world",
@@ -335,17 +373,37 @@ export const CONTENT: Record<Locale, SiteContent> = {
 
   /* ------------------------------------------------------------------ FR */
   fr: {
-    ui: { openLive: "Voir en ligne", source: "Code", live: "En ligne", liveDemo: "Démo live", palette: "Palette", langName: "FR" },
+    ui: { openLive: "Voir en ligne", source: "Code", live: "En ligne", liveDemo: "Démo live", palette: "Palette", langName: "FR", lensLabel: "Vue", lensBusiness: "Métier", lensTechnical: "Technique" },
+    systemsMap: {
+      stages: { data: "DONNÉE", memory: "MÉMOIRE", agents: "AGENTS" },
+      nodes: {
+        aura: { role: "Donnée", thesis: "Transforme tout fichier en signal propre et typé." },
+        nexus: { role: "Mémoire", thesis: "Mémoire de production — une récupération qui ancre, cite et refuse." },
+        maestro: { role: "Agents", thesis: "Orchestre une IA multi-agents en livrables vérifiables." },
+      },
+    },
     nav: { work: "Projets", approach: "Approche", journey: "Parcours", stack: "Stack", services: "Services", contact: "Contact", talk: "Discutons" },
     hero: {
-      roles: ["INGÉNIEUR IA / ML", "BÂTISSEUR D’IA EN PRODUCTION"],
-      title: { pre1: "Je conçois des ", grad1: "systèmes d’IA", pre2: "taillés pour la ", grad2: "production." },
-      lines: [
-        "Je construis des systèmes qui tiennent en production.",
-        "IA multi-agents — de la vraie orchestration, pas des chaînes de prompts.",
-        "Des moteurs RAG avec mémoire, ancrage et honnêteté.",
-        "De la donnée brute à l’intelligence réelle.",
-      ],
+      technical: {
+        roles: ["INGÉNIEUR IA / ML", "BÂTISSEUR D’IA EN PRODUCTION"],
+        title: { pre1: "Je conçois des ", grad1: "systèmes d’IA", pre2: "taillés pour la ", grad2: "production." },
+        lines: [
+          "Je construis des systèmes qui tiennent en production.",
+          "IA multi-agents — de la vraie orchestration, pas des chaînes de prompts.",
+          "Des moteurs RAG avec mémoire, ancrage et honnêteté.",
+          "De la donnée brute à l’intelligence réelle.",
+        ],
+      },
+      business: {
+        roles: ["INGÉNIEUR IA", "DES RÉSULTATS, PAS DES DÉMOS"],
+        title: { pre1: "Je transforme la donnée en ", grad1: "IA", pre2: "qui ", grad2: "rapporte." },
+        lines: [
+          "Des rapports de cinq heures en cinq minutes.",
+          "Des réponses fiables — avec la source.",
+          "Une mission en entrée, un livrable en sortie.",
+          "Qualité production, pas une démo de recherche.",
+        ],
+      },
       cta1: "Voir les projets",
       cta2: "Me contacter",
       location: "Casablanca → le monde",

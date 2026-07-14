@@ -1,0 +1,63 @@
+/* ------------------------------------------------------------------ *
+ *  Business ⇄ Technical lens toggle — segmented pill
+ * ------------------------------------------------------------------ */
+
+.lens-toggle {
+  position: relative;
+  display: inline-flex;
+  margin: 1.15rem 0 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-2);
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.lens-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: var(--accent-ink);
+  box-shadow: 0 6px 16px -6px var(--accent);
+  transition: transform 0.42s var(--ease);
+}
+.lens-thumb[data-pos="business"] {
+  transform: translateX(0);
+}
+.lens-thumb[data-pos="technical"] {
+  transform: translateX(100%);
+}
+
+.lens-opt {
+  position: relative;
+  z-index: 1;
+  min-width: 88px;
+  height: 38px;
+  padding: 0 16px;
+  border: 0;
+  background: none;
+  border-radius: 999px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s var(--ease);
+}
+.lens-opt[data-active="true"] {
+  color: #fff;
+}
+.lens-opt:not([data-active="true"]):hover {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens-thumb {
+    transition: none;
+  }
+}

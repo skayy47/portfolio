@@ -1,0 +1,163 @@
+/* ------------------------------------------------------------------ *
+ *  Interactive AI Systems Map — data → memory → agents constellation
+ * ------------------------------------------------------------------ */
+
+.sysmap {
+  position: relative;
+  margin-top: 56px;
+}
+
+.sysmap-track {
+  position: relative;
+}
+
+/* Flowing rail behind the orb row */
+.sysmap-rail {
+  position: absolute;
+  top: 48px;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-3) 50%, var(--accent-2));
+  opacity: 0.4;
+  border-radius: 2px;
+}
+.sysmap-pulse {
+  position: absolute;
+  top: 44px;
+  left: 14%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-3);
+  box-shadow: 0 0 14px 3px var(--glow);
+  animation: sysmap-travel 3.8s var(--ease) infinite;
+}
+@keyframes sysmap-travel {
+  0% {
+    left: 14%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 86%;
+    opacity: 0;
+  }
+}
+
+.sysmap-nodes {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+}
+
+.sysmap-node {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: none;
+  border: 0;
+  padding: 0 8px;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
+}
+.sysmap-node[data-dim="true"] {
+  opacity: 0.42;
+}
+.sysmap-node[data-on="true"] {
+  transform: translateY(-6px);
+}
+
+.sysmap-stage {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--text-faint);
+  height: 16px;
+  line-height: 16px;
+  margin-bottom: 10px;
+}
+
+.sysmap-orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--node) 78%, white), var(--node));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--node) 12%, transparent), 0 10px 26px -6px var(--node);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.sysmap-node[data-on="true"] .sysmap-orb {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 11px color-mix(in srgb, var(--node) 18%, transparent), 0 14px 36px -4px var(--node);
+}
+
+.sysmap-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 20px;
+}
+.sysmap-role {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--node);
+  margin-top: 5px;
+}
+.sysmap-thesis {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-soft);
+  margin-top: 12px;
+  max-width: 26ch;
+}
+
+.sysmap-arc {
+  margin: 52px auto 0;
+  max-width: 62ch;
+  text-align: center;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+.sysmap-arc-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sysmap-pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .sysmap-node,
+  .sysmap-orb {
+    transition: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .sysmap-rail,
+  .sysmap-pulse {
+    display: none;
+  }
+  .sysmap-nodes {
+    flex-direction: column;
+    gap: 36px;
+  }
+  .sysmap-thesis {
+    max-width: 36ch;
+  }
+}

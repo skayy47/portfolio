@@ -3,6 +3,7 @@ import { Archivo, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider, themeBootScript } from "@/components/providers/ThemeProvider";
 import { LangProvider, langBootScript } from "@/components/providers/LangProvider";
+import { LensProvider, lensBootScript } from "@/components/providers/LensProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { IDENTITY } from "@/lib/identity";
 
@@ -40,17 +41,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       data-theme="aurora"
+      data-lens="technical"
       suppressHydrationWarning
       className={`${archivo.variable} ${grotesk.variable} ${jb.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: lensBootScript }} />
       </head>
       <body>
         <ThemeProvider>
           <LangProvider>
-            <SmoothScroll>{children}</SmoothScroll>
+            <LensProvider>
+              <SmoothScroll>{children}</SmoothScroll>
+            </LensProvider>
           </LangProvider>
         </ThemeProvider>
       </body>

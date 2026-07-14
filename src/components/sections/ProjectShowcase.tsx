@@ -14,7 +14,7 @@ export function ProjectShowcase({ base, flip }: { base: ProjectBase; flip: boole
   const name = NAMES[base.id];
 
   return (
-    <article className={`project ${flip ? "project-flip" : ""}`} data-accent={base.accent}>
+    <article id={`project-${base.id}`} className={`project ${flip ? "project-flip" : ""}`} data-accent={base.accent}>
       {/* Live demo — frame is click-through to the real app. */}
       <Reveal className="project-media-wrap">
         <div className="media-frame demo-frame">

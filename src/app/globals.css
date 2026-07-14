@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./systems-map.css";
+@import "./lens.css";
 
 /* ------------------------------------------------------------------ *
  *  SKAY — premium portfolio design system

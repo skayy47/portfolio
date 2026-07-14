@@ -1,6 +1,6 @@
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
-import { Approach } from "@/components/sections/Approach";
+import { SystemsMap } from "@/components/sections/SystemsMap";
 import { Projects } from "@/components/sections/Projects";
 import { MoreProjects } from "@/components/sections/MoreProjects";
 import { Journey } from "@/components/sections/Journey";
@@ -18,7 +18,7 @@ export default function Home() {
       <PaletteSwitcher />
       <main>
         <Hero />
-        <Approach />
+        <SystemsMap />
         <Projects />
         <MoreProjects />
         <Journey />

@@ -24,6 +24,7 @@ const jb = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://skay-portfolio.vercel.app"),
   title: `${IDENTITY.name} — AI Engineer & Data Scientist`,
   description:
     "Oussama Skia (SKAY) — AI Engineer & Data Scientist. I build systems that survive production: multi-agent orchestration, production RAG, full-stack data intelligence. EN / FR.",
@@ -33,6 +34,13 @@ export const metadata: Metadata = {
     title: `${IDENTITY.name} — AI Engineer & Data Scientist`,
     description: "I build AI systems that survive production.",
     type: "website",
+    url: "https://skay-portfolio.vercel.app",
+    siteName: "SKAY — Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${IDENTITY.name} — AI Engineer & Data Scientist`,
+    description: "I build AI systems that survive production.",
   },
 };
 

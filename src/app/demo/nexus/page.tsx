@@ -240,7 +240,7 @@ export default function NexusDemo() {
     "FastAPI", "Next.js 14", "LangChain LCEL", "pgvector",
     "Groq Llama 3.3 70B", "Supabase", "BM25",
     "all-MiniLM-L6-v2", "TypeScript", "Framer Motion", "Docker",
-    "Hugging Face Spaces", "Vercel", "pytest (152 tests)",
+    "Hugging Face Spaces", "Vercel", "pytest (147 tests)",
   ];
 
   return (
@@ -355,10 +355,10 @@ export default function NexusDemo() {
           gap: 2, background: C.border, border: `1px solid ${C.border}`, borderRadius: 16, overflow: "hidden",
         }}>
           {[
-            { target: 152, suffix: "", label: "Tests passing" },
+            { target: 147, suffix: "", label: "Tests passing" },
             { target: 15, suffix: "", label: "Doc formats" },
             { target: 42, suffix: "%", label: "Knowledge at risk" },
-            { target: 10, suffix: "", label: "MATCH_K chunks" },
+            { target: 8, suffix: "", label: "MATCH_K chunks" },
           ].map((s, i) => (
             <div key={i} style={{ background: C.surface, padding: "36px 20px", textAlign: "center" }}>
               <StatCounter target={s.target} suffix={s.suffix} label={s.label} active={true} />
@@ -508,7 +508,7 @@ export default function NexusDemo() {
               Every answer is grounded via dual-path verification: citation-aware fuzzy matching + semantic cosine against embedded chunks. Coverage below 0.45 triggers a knowledge gap declaration. No hallucination by design.
             </p>
             <div style={{ fontSize: 12, color: C.textMuted, fontFamily: "monospace", lineHeight: 1.8 }}>
-              MATCH_K=10 · threshold=0.40<br />
+              MATCH_K=8 · threshold=0.40<br />
               min_words=3 · fuzzy normalize()<br />
               dual-gate: coverage + non-answer signal
             </div>

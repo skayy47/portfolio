@@ -6,7 +6,7 @@ export const IDENTITY = {
   location: "Casablanca, Morocco",
   socials: {
     github: "https://github.com/skayy47",
-    linkedin: "https://www.linkedin.com/in/oussama-skia-b72387417",
+    linkedin: "https://www.linkedin.com/in/oussama-skia",
     email: "mailto:oussamaiskia@gmail.com",
   },
 } as const;

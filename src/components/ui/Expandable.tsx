@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/LangProvider";
+import { ScrollTrigger } from "@/lib/gsap";
 
 /** Progressive-disclosure "Read more" — animated, accessible, reduced-motion aware. */
 export function Expandable({
@@ -25,11 +26,15 @@ export function Expandable({
 
   return (
     <div className="expandable">
-      <AnimatePresence initial={false}>
+      {/* This is the one component on the page that changes document height after
+          load, so every ScrollTrigger below it goes stale unless we re-measure
+          on both enter and exit. */}
+      <AnimatePresence initial={false} onExitComplete={() => ScrollTrigger.refresh()}>
         {open && (
           <motion.div
             key="content"
             id={id}
+            onAnimationComplete={() => ScrollTrigger.refresh()}
             initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
             animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}

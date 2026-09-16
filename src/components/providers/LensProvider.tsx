@@ -33,6 +33,9 @@ export function LensProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem(KEY, l);
     } catch {}
+    // Copy changes layout height (FR runs longer than EN), so the motion layer
+    // must re-measure every ScrollTrigger. Mirrors ThemeProvider's "themechange".
+    window.dispatchEvent(new CustomEvent("lenschange", { detail: l }));
   }, []);
 
   return <LensContext.Provider value={{ lens, setLens }}>{children}</LensContext.Provider>;

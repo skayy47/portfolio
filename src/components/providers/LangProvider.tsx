@@ -37,6 +37,9 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem(KEY, l);
     } catch {}
+    // Copy changes layout height (FR runs longer than EN), so the motion layer
+    // must re-measure every ScrollTrigger. Mirrors ThemeProvider's "themechange".
+    window.dispatchEvent(new CustomEvent("langchange", { detail: l }));
   }, []);
 
   return <LangContext.Provider value={{ locale, setLocale, c: CONTENT[locale] }}>{children}</LangContext.Provider>;

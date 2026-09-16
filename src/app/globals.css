@@ -133,7 +133,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* No scroll-behavior: smooth — it fights Lenis' interpolation and
+     double-animates scrollToId(). Lenis owns smooth scrolling. */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -328,15 +329,24 @@ a {
   padding-block: clamp(5rem, 11vw, 9rem);
 }
 
-/* ---- Reveal (paired with JS) ------------------------------------- */
-.reveal {
+/* ---- Reveal (GSAP-driven; see components/ui/Reveal.tsx) ----------- *
+ * No transition here on purpose — GSAP owns opacity and transform and
+ * writes them inline every frame. A CSS transition would try to tween
+ * each of those per-frame writes and smear the animation.              */
+.js-motion .gs-reveal {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  will-change: transform, opacity;
 }
-.reveal.in {
-  opacity: 1;
-  transform: none;
+
+/* ---- Hero title lines (GSAP entrance) ----------------------------- *
+ * These replace a <br/> so each logical line is a block GSAP can stagger.
+ * No overflow:hidden — see the note in Hero.tsx about why the mask reveal
+ * was dropped (the title wraps, so it slid as a slab).                  */
+.hero-line {
+  display: block;
+}
+.hero-line-in {
+  display: block;
 }
 
 /* ---- Keyframes --------------------------------------------------- */
@@ -397,9 +407,15 @@ a {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal {
-    opacity: 1;
-    transform: none;
+  /* GSAP tweens are neither a CSS transition nor a CSS animation, so the
+     duration overrides above do NOT stop them. These force the resting
+     state so a reduced-motion user (or a JS failure) sees a full page
+     instead of elements stranded at their from-state. */
+  .gs-reveal,
+  .hero-line-in,
+  .tl-rail-fill {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -458,7 +474,8 @@ a {
   display: flex;
   justify-content: center;
   padding-top: 1rem;
-  transition: transform 0.4s var(--ease);
+  /* No transform transition — GSAP's quickTo owns .nav's transform now and a
+     CSS transition would tween each of its per-frame writes (see Nav.tsx). */
 }
 .nav-inner {
   display: flex;
@@ -1879,6 +1896,19 @@ a {
   width: 2px;
   background: linear-gradient(var(--accent), var(--accent-2), var(--accent-3));
   opacity: 0.35;
+}
+.tl-rail-fill {
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(var(--accent), var(--accent-2), var(--accent-3));
+  transform-origin: top;
+  will-change: transform;
+}
+.js-motion .tl-rail-fill {
+  transform: scaleY(0);
 }
 .tl-step {
   position: relative;

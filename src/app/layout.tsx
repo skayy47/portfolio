@@ -5,6 +5,7 @@ import { ThemeProvider, themeBootScript } from "@/components/providers/ThemeProv
 import { LangProvider, langBootScript } from "@/components/providers/LangProvider";
 import { LensProvider, lensBootScript } from "@/components/providers/LensProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { motionBootScript } from "@/lib/motion-boot";
 import { IDENTITY } from "@/lib/identity";
 
 const archivo = Archivo({
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: langBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: lensBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>
       <body>
         <ThemeProvider>

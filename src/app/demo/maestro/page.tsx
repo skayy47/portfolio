@@ -1,5 +1,7 @@
 "use client";
 
+import { CountUp } from "@/components/ui/CountUp";
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
@@ -20,22 +22,6 @@ function useInView(threshold = 0.2) {
   return { ref, visible };
 }
 
-function useCounter(target: number, active: boolean, duration = 1200) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let start: number | null = null;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      setVal(Math.round(ease * target));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [active, target, duration]);
-  return val;
-}
 
 /* ─── palette ─── */
 const C = {
@@ -66,12 +52,10 @@ const AGENT_COLORS: Record<string, string> = {
 
 /* ─── sub-components ─── */
 function StatCounter({ target, suffix = "", label }: { target: number; suffix?: string; label: string }) {
-  const { ref, visible } = useInView(0.3);
-  const val = useCounter(target, visible);
   return (
-    <div ref={ref} style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center" }}>
       <div style={{ fontSize: 42, fontWeight: 800, color: C.accentLight, fontVariantNumeric: "tabular-nums", letterSpacing: "-1px" }}>
-        {val}{suffix}
+        <CountUp value={target} suffix={suffix} />
       </div>
       <div style={{ fontSize: 13, color: C.textSec, marginTop: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>{label}</div>
     </div>

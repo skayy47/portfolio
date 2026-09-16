@@ -20,7 +20,8 @@ export function useReducedMotion(): boolean {
 
   useEffect(() => {
     const mq = window.matchMedia(QUERY);
-    setReduce(mq.matches);
+    // No initial setReduce here: the lazy initializer above already read the
+    // current value during render, so this only has to track later changes.
     const onChange = (e: MediaQueryListEvent) => setReduce(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);

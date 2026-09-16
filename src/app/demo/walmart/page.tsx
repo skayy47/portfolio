@@ -1,5 +1,7 @@
 "use client";
 
+import { CountUp } from "@/components/ui/CountUp";
+
 import { useEffect, useRef, useState } from "react";
 
 /* ─── palette ──────────────────────────────────────────────────────────────── */
@@ -53,30 +55,13 @@ function useInView(threshold = 0.2) {
   return { ref, visible };
 }
 
-function useCounter(target: number, active: boolean, duration = 1200) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      setVal(Math.round(ease * target * 100) / 100);
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [active, target, duration]);
-  return val;
-}
 
 /* ─── components ───────────────────────────────────────────────────────────── */
 function Stat({ value, label, prefix = "", suffix = "" }: { value: number; label: string; prefix?: string; suffix?: string }) {
-  const { ref, visible } = useInView(0.3);
-  const v = useCounter(value, visible);
   return (
-    <div ref={ref} style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center" }}>
       <div style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, color: C.accent, letterSpacing: "-0.02em", lineHeight: 1 }}>
-        {prefix}{suffix === "%" ? v.toFixed(2) : Math.round(v).toLocaleString()}{suffix}
+        <CountUp value={value} decimals={suffix === "%" ? 2 : 0} prefix={prefix} suffix={suffix} />
       </div>
       <div style={{ fontSize: "0.8rem", color: C.textSub, marginTop: 6, textTransform: "uppercase", letterSpacing: "0.1em" }}>{label}</div>
     </div>

@@ -260,7 +260,7 @@ export default function AuraCaseStudy() {
       </section>
 
       <div style={{ padding: "0 24px" }}>
-        <CaseHero id="aura" poster="/cinematics/aura.png" video="/cinematics/aura.mp4" alt="AURA — universal data engine" surface={C.surface} border={C.border} />
+        <CaseHero id="aura" poster="/cinematics/aura" video="/cinematics/aura.mp4" alt="AURA — universal data engine" surface={C.surface} border={C.border} />
       </div>
 
       {/* ── stats ── */}

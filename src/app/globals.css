@@ -2320,33 +2320,60 @@ a {
   margin-top: 3rem;
 }
 .more-card {
-  padding: 1.8rem;
+  position: relative;
+  padding: 1.9rem 1.8rem 1.8rem;
   border-radius: var(--r-lg);
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  transition: transform 0.5s var(--ease);
+  gap: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease);
 }
 .more-card:hover {
   transform: translateY(-5px);
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
 }
 .more-card-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+/* Same outlined-numeral grammar as the acts, one size down — these are minor
+   works in the same exhibition, not cards from a different site. */
+.more-index {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 0.74;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in oklab, var(--accent) 34%, var(--border-2));
+  user-select: none;
+  flex: none;
+}
+.more-title {
+  min-width: 0;
+}
+.more-title .eyebrow {
+  margin-bottom: 0.3rem;
 }
 .more-name {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 .more-blurb {
   color: var(--text-soft);
-  line-height: 1.6;
-  font-size: 0.95rem;
+  line-height: 1.65;
+  font-size: 0.94rem;
   flex: 1;
+}
+.more-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 .more-tech {
   display: flex;
@@ -2356,7 +2383,8 @@ a {
 .more-actions {
   display: flex;
   gap: 0.6rem;
-  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
 }
 .more-btn {
   height: 2.7rem;

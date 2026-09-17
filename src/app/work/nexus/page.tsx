@@ -335,7 +335,7 @@ export default function NexusDemo() {
       </section>
 
       <div style={{ padding: "0 24px" }}>
-        <CaseHero id="nexus" poster="/cinematics/nexus.png" alt="nexus — production RAG engine" surface={C.surface} border={C.border} />
+        <CaseHero id="nexus" poster="/cinematics/nexus" alt="nexus — production RAG engine" surface={C.surface} border={C.border} />
       </div>
 
       {/* ── stats ── */}

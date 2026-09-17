@@ -19,6 +19,7 @@ export function CaseHero({
   border,
 }: {
   id: string;
+  /** Extensionless base path — .avif and .webp are both served from it. */
   poster: string;
   video?: string;
   alt: string;
@@ -42,7 +43,7 @@ export function CaseHero({
         {video ? (
           <video
             src={video}
-            poster={poster}
+            poster={`${poster}.webp`}
             autoPlay
             muted
             loop
@@ -51,14 +52,20 @@ export function CaseHero({
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         ) : (
-          /* eslint-disable-next-line @next/next/no-img-element --
-             these posters are local and fixed-size, and next/image's wrapper
-             would put a layer between the morph and the element it flies. */
-          <img
-            src={poster}
-            alt={alt}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
+          <picture>
+            <source srcSet={`${poster}.avif`} type="image/avif" />
+            <source srcSet={`${poster}.webp`} type="image/webp" />
+            {/* eslint-disable-next-line @next/next/no-img-element --
+                next/image puts a wrapper element between the morph and the
+                element it flies, and these are local fixed-size posters. */}
+            <img
+              src={`${poster}.webp`}
+              alt={alt}
+              width={1600}
+              height={900}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+          </picture>
         )}
       </div>
     </ViewTransition>

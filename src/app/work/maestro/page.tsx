@@ -263,7 +263,7 @@ export default function MaestroDemo() {
       </section>
 
       <div style={{ padding: "0 24px" }}>
-        <CaseHero id="maestro" poster="/cinematics/maestro.png" alt="MAESTRO — multi-agent command center" surface={C.surface} border={C.border} />
+        <CaseHero id="maestro" poster="/cinematics/maestro" alt="MAESTRO — multi-agent command center" surface={C.surface} border={C.border} />
       </div>
 
       {/* ── stats ── */}

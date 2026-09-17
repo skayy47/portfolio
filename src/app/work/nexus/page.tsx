@@ -1,6 +1,8 @@
 "use client";
 
 import { CountUp } from "@/components/ui/CountUp";
+import { CaseNav } from "@/components/sections/CaseNav";
+import { CaseHero } from "@/components/sections/CaseHero";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -332,6 +334,10 @@ export default function NexusDemo() {
         </div>
       </section>
 
+      <div style={{ padding: "0 24px" }}>
+        <CaseHero id="nexus" poster="/cinematics/nexus" alt="nexus — production RAG engine" surface={C.surface} border={C.border} />
+      </div>
+
       {/* ── stats ── */}
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 80px" }}>
         <div style={{
@@ -589,6 +595,8 @@ export default function NexusDemo() {
           </a>
         </div>
       </section>
+
+      <CaseNav current="nexus" accent={C.accent} border={C.border} />
 
       {/* ── footer ── */}
       <footer style={{

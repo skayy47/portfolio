@@ -12,16 +12,22 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CustomEase } from "gsap/CustomEase";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 declare global {
   interface Window {
     __motionReady?: boolean;
+    /** Dev-only handles. The preview pane throttles rAF, so the only way to
+     *  tell "the tween is broken" from "the tween has not been triggered" is to
+     *  read the triggers directly. Stripped from production builds. */
+    __st?: typeof ScrollTrigger;
+    __gsap?: typeof gsap;
   }
 }
 
 // registerPlugin is idempotent (gsap keys plugins by name), so re-entry is safe.
-gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase);
+gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase, SplitText);
 
 /**
  * Mirror the CSS easing tokens so GSAP motion is indistinguishable from the
@@ -43,6 +49,12 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 // as soon as the chunk parses, well before hydration finishes, so a slow hydrate
 // can't race the failsafe into stripping `html.js-motion` and killing the
 // animation on a slow connection.
-if (typeof window !== "undefined") window.__motionReady = true;
+if (typeof window !== "undefined") {
+  window.__motionReady = true;
+  if (process.env.NODE_ENV !== "production") {
+    window.__st = ScrollTrigger;
+    window.__gsap = gsap;
+  }
+}
 
-export { gsap, ScrollTrigger, useGSAP };
+export { gsap, ScrollTrigger, SplitText, useGSAP };

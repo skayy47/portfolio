@@ -24,6 +24,7 @@
   --r-lg: 26px;
   --r-xl: 34px;
   --maxw: 1200px;
+  --maxw-wide: 1440px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --shadow-soft: 0 1px 2px rgba(16, 18, 40, 0.04), 0 18px 50px -22px rgba(16, 18, 40, 0.18);
@@ -324,6 +325,18 @@ a {
   padding-inline: clamp(1.1rem, 4vw, 2.5rem);
 }
 
+/* A second max-width, deliberately NOT a 100vw breakout: 100vw counts the
+   scrollbar, so on Windows it overflows by ~15px, and hiding that under
+   body{overflow-x:hidden} is exactly what breaks ScrollTrigger measurement.
+   Same padding clamp as .shell, so the gutter is shared below 1200px and the
+   stage only widens past it. That IS the breakout — no negative margins. */
+.shell-wide {
+  width: 100%;
+  max-width: var(--maxw-wide);
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 2.5rem);
+}
+
 .section {
   position: relative;
   padding-block: clamp(5rem, 11vw, 9rem);
@@ -413,8 +426,24 @@ a {
      instead of elements stranded at their from-state. */
   .gs-reveal,
   .hero-line-in,
-  .tl-rail-fill {
+  .tl-rail-fill,
+  .act-index,
+  .act-name,
+  .act-kicker,
+  .act-tagline,
+  .act-desc,
+  .act-foot .expandable-toggle,
+  .act-foot .metric-chip,
+  .act-foot .chip,
+  .act-actions > * {
     opacity: 1 !important;
+    transform: none !important;
+  }
+  /* The act's stage reveal is a clip-path, which no rule above resets. */
+  .act-frame {
+    clip-path: none !important;
+  }
+  .act-frame-inner {
     transform: none !important;
   }
 }
@@ -438,6 +467,15 @@ a {
 .has-cursor [data-cursor] {
   cursor: none;
 }
+/* Revealed by Cursor.tsx on the first pointer move — see the note there. */
+.cursor-dot,
+.cursor-ring,
+.cursor-label {
+  opacity: 0;
+}
+body[data-cursor-ready] .cursor-dot {
+  opacity: 1;
+}
 .cursor-dot,
 .cursor-ring {
   position: fixed;
@@ -457,11 +495,50 @@ a {
   width: 38px;
   height: 38px;
   border: 1.5px solid var(--accent);
-  transition: opacity 0.3s var(--ease);
+  /* JS owns transform and opacity here; width/height/background/border are the
+     only things CSS animates, so there is nothing for the two to fight over. */
+  transition: opacity 0.3s var(--ease), width 0.34s var(--ease), height 0.34s var(--ease),
+    background-color 0.34s var(--ease), border-color 0.34s var(--ease), border-radius 0.34s var(--ease);
 }
+
+/* Morphed state: the ring becomes a solid pill sized to its label. */
+.cursor-ring[data-mode="label"] {
+  width: var(--cursor-pill-w, 116px);
+  height: 34px;
+  border-radius: 99px;
+  background: var(--ink);
+  border-color: transparent;
+  /* multiply would muddy the label against the page behind it. */
+  mix-blend-mode: normal;
+}
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  /* Auto width so JS can measure the real label and size the pill to it. */
+  display: inline-grid;
+  place-items: center;
+  padding-inline: 0.95rem;
+  height: 34px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity 0.22s var(--ease);
+}
+.cursor-ring[data-mode="label"] ~ .cursor-label {
+  opacity: 1;
+}
+
 @media (pointer: coarse) {
   .cursor-dot,
-  .cursor-ring {
+  .cursor-ring,
+  .cursor-label {
     display: none;
   }
 }
@@ -946,61 +1023,235 @@ a {
   }
 }
 
-/* ---- Projects ---------------------------------------------------- */
+/* GSAP writes transform here on every pointer move — no CSS transition on it. */
+.magnetic {
+  will-change: transform;
+}
+
+/* ---- Projects — the exhibition ------------------------------------ *
+ * One "act" per project: an oversized outlined numeral and name, the live
+ * demo edge to edge, then the reading matter. No alternation — the rhythm
+ * comes from scale and whitespace, not from flipping sides.
+ * ------------------------------------------------------------------- */
 .work-head {
   margin-bottom: 1rem;
 }
-.projects {
+.acts {
   display: flex;
   flex-direction: column;
-  gap: clamp(5rem, 10vw, 8rem);
-  margin-top: 4rem;
+  gap: clamp(7rem, 14vw, 12rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
 }
-.project {
+
+.act {
+  position: relative;
+}
+/* data-accent was dead markup until now — it drives the numeral's stroke. All
+   var()-based, so the five-palette switcher keeps working and GSAP, which would
+   freeze a resolved rgb, never touches a colour here. */
+.act[data-accent="1"] { --act-c: var(--accent); }
+.act[data-accent="2"] { --act-c: var(--accent-2); }
+.act[data-accent="3"] { --act-c: var(--accent-3); }
+
+/* ---- head ---- */
+.act-head {
   display: grid;
-  grid-template-columns: 1.02fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: end;
+  column-gap: clamp(1.2rem, 3vw, 2.4rem);
+  row-gap: 0.8rem;
+  margin-bottom: clamp(1.6rem, 3vw, 2.6rem);
 }
-.project-flip .project-media-wrap {
-  order: 2;
-}
-.project-index {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+.act-index {
+  font-size: clamp(4.2rem, 12vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.72;
   color: transparent;
-  -webkit-text-stroke: 1.4px var(--border-2);
-  line-height: 0.8;
+  -webkit-text-stroke: clamp(1.4px, 0.16vw, 2.4px)
+    color-mix(in oklab, var(--act-c, var(--accent)) 42%, var(--border-2));
+  user-select: none;
 }
-.project-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
+.act-title {
+  min-width: 0;
 }
-.project-name {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-top: 0.2rem;
+.act-kicker {
+  margin-bottom: 0.45rem;
 }
-.project-tagline {
+.act-name {
+  font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  line-height: 0.92;
+}
+.act-tagline {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.15rem;
-  line-height: 1.4;
+  font-size: clamp(1rem, 1.4vw, 1.28rem);
+  line-height: 1.42;
   letter-spacing: -0.01em;
-  margin-bottom: 0.9rem;
-}
-.project-desc {
   color: var(--text-soft);
-  line-height: 1.7;
-  margin-bottom: 1.4rem;
+  padding-bottom: 0.4rem;
 }
+
+/* ---- stage ---- */
+.act-stage {
+  position: relative;
+}
+.act-frame {
+  aspect-ratio: 16 / 10;
+  max-height: 74svh;
+  margin-inline: auto;
+  /* The demo canvas reads this to size itself to the frame exactly. */
+  container-type: inline-size;
+  /* GSAP writes transform on this subtree, and a CSS transition on a property
+     JS rewrites every frame tries to tween each write and smears it. The
+     inherited .media-frame hover lift is replaced by the cursor parallax. */
+  transition: none;
+}
+.act-frame:hover {
+  transform: none;
+}
+.act-frame-inner {
+  position: absolute;
+  inset: 0;
+}
+
+/* The demo internals are absolute rem, laid out for a 620px canvas — at
+   1400px they would look marooned. So the demo renders into that fixed canvas
+   and CSS scales it to fill the frame exactly. A media-query ladder cannot do
+   this, because the frame's width depends on the svh cap: tan(atan2(a, b)) is
+   the only way to express a/b as a unitless ratio in pure CSS.
+   Deliberately no will-change here — a promoted layer rasterises at 1x and the
+   scaled text goes soft. */
+.act-demo-scale {
+  --demo-w: 620px;
+  --demo-h: 388px;
+  position: absolute;
+  inset: 0;
+}
+/* Below the design width the demo lays out natively, exactly as it always has —
+   scaling a 620px canvas down would just make the labels illegible. The canvas
+   only comes into play once the frame is wider than the demo was built for. */
+@media (min-width: 900px) {
+  .act-demo-scale {
+    --demo-scale: clamp(1, tan(atan2(100cqw, var(--demo-w))), 2.4);
+    inset: auto;
+    top: 0;
+    left: 0;
+    width: var(--demo-w);
+    height: var(--demo-h);
+    transform-origin: top left;
+    transform: scale(var(--demo-scale));
+  }
+  /* MAESTRO's stack fills ~63% of the canvas where AURA and nexus fill 97-100%,
+     so its air all pooled at the bottom and the frame read as unfinished.
+     Balanced by pushing it down rather than by centring: the deliverable pill
+     mounts late, and justify-content would shift the whole stack when it does.
+     Scoped to the canvas — below 900px this demo already fills its box. */
+  .act-demo-scale .demo-maestro {
+    padding-top: 5rem;
+  }
+}
+
+/* ---- pre-reveal states ------------------------------------------- *
+ * These exist ONLY under html.js-motion, which lib/motion-boot.ts adds before
+ * paint and strips again after 6s if the motion chunk never announced itself.
+ * A resting state that lived only inside a GSAP tween would be unreachable:
+ * GSAP writes inline styles, which the reduced-motion kill-switch above cannot
+ * undo. So nothing here is ever invisible without JS.
+ *
+ * .act-name is hidden as a whole because its per-character spans do not exist
+ * until SplitText runs; the timeline reveals the heading the moment they do.
+ * ------------------------------------------------------------------- */
+.js-motion .act-index,
+.js-motion .act-name,
+.js-motion .act-kicker,
+.js-motion .act-tagline,
+.js-motion .act-desc,
+.js-motion .act-foot .expandable-toggle,
+.js-motion .act-foot .metric-chip,
+.js-motion .act-foot .chip,
+.js-motion .act-actions > * {
+  opacity: 0;
+}
+.js-motion .act-index,
+.js-motion .act-name,
+.js-motion .act-frame-inner {
+  will-change: transform, opacity;
+}
+.js-motion .act-frame {
+  clip-path: inset(14% 8% 14% 8%);
+}
+
+/* ---- focus ------------------------------------------------------- *
+ * One act at a time carries the reader's attention. The class goes on the
+ * INACTIVE acts, never the active one — so with no JS, a failed hydrate, or
+ * the motion-boot failsafe, nothing is dimmed and every act reads at full
+ * strength. That polarity is why this needs no reduced-motion kill-switch.
+ *
+ * Transitioning opacity is safe: GSAP owns transform on .act-frame-inner and
+ * .act-index, and never writes opacity or filter on these elements. Dimming
+ * with filter would be wrong twice over — it costs more on a 1400px surface,
+ * and a filter on an ancestor creates a containing block that breaks the
+ * shared-element capture on a case-study navigation.
+ * ------------------------------------------------------------------- */
+.act-head,
+.act-stage,
+.act-foot {
+  transition: opacity 0.55s var(--ease);
+}
+/* Per part, not one opacity on .act: a parent's opacity cannot be undone by a
+   child, and the numeral should stay more present than the body copy. */
+.act.is-dim .act-stage,
+.act.is-dim .act-foot {
+  opacity: 0.42;
+}
+.act.is-dim .act-head {
+  opacity: 0.68;
+}
+/* One-shot: un-dim with no transition, so a view-transition snapshot taken in
+   the same frame catches the act at full strength rather than mid-fade. */
+.act.is-instant .act-head,
+.act.is-instant .act-stage,
+.act.is-instant .act-foot {
+  transition: none;
+}
+/* A dimmed demo should not keep burning frames on its CSS keyframes either. */
+.act.is-dim .demo *,
+.act.is-dim .demo *::before,
+.act.is-dim .demo *::after {
+  animation-play-state: paused;
+}
+
+/* ---- foot ---- */
+.act-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+  margin-top: clamp(1.8rem, 3.5vw, 3rem);
+  align-items: start;
+}
+.act-desc {
+  color: var(--text-soft);
+  line-height: 1.75;
+  font-size: clamp(0.98rem, 1.1vw, 1.06rem);
+  margin-bottom: 1.1rem;
+}
+.act-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.act-actions {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
 .signature {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  margin-bottom: 1.5rem;
 }
 .signature li {
   display: flex;
@@ -1014,19 +1265,26 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.6rem;
 }
-.project-actions {
-  display: flex;
-  gap: 0.7rem;
-  flex-wrap: wrap;
-}
+
 @media (max-width: 900px) {
-  .project {
-    grid-template-columns: 1fr;
+  .act-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
   }
-  .project-flip .project-media-wrap {
-    order: 0;
+  .act-tagline {
+    grid-column: 1 / -1;
+    padding-bottom: 0;
+  }
+  .act-index {
+    font-size: clamp(3rem, 14vw, 4.6rem);
+  }
+  .act-frame {
+    aspect-ratio: 4 / 3;
+    max-height: 64svh;
+  }
+  .act-foot {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1322,7 +1580,12 @@ a {
 .demo-caption {
   position: absolute;
   left: 5%;
-  bottom: 6%;
+  /* Clear of the frame's own Live pill, which is anchored 1rem from the
+     bottom of the frame and used to sit straight on top of this. A fixed
+     offset, not a percentage: the pill's footprint is roughly constant, while
+     a percentage of the canvas shrinks with the frame and stops clearing it
+     on a phone. */
+  bottom: 4.6rem;
   font-size: 0.68rem;
   color: var(--text-soft);
   z-index: 2;
@@ -2079,33 +2342,60 @@ a {
   margin-top: 3rem;
 }
 .more-card {
-  padding: 1.8rem;
+  position: relative;
+  padding: 1.9rem 1.8rem 1.8rem;
   border-radius: var(--r-lg);
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  transition: transform 0.5s var(--ease);
+  gap: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease);
 }
 .more-card:hover {
   transform: translateY(-5px);
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
 }
 .more-card-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+/* Same outlined-numeral grammar as the acts, one size down — these are minor
+   works in the same exhibition, not cards from a different site. */
+.more-index {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 0.74;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in oklab, var(--accent) 34%, var(--border-2));
+  user-select: none;
+  flex: none;
+}
+.more-title {
+  min-width: 0;
+}
+.more-title .eyebrow {
+  margin-bottom: 0.3rem;
 }
 .more-name {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 .more-blurb {
   color: var(--text-soft);
-  line-height: 1.6;
-  font-size: 0.95rem;
+  line-height: 1.65;
+  font-size: 0.94rem;
   flex: 1;
+}
+.more-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 .more-tech {
   display: flex;
@@ -2115,7 +2405,8 @@ a {
 .more-actions {
   display: flex;
   gap: 0.6rem;
-  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
 }
 .more-btn {
   height: 2.7rem;

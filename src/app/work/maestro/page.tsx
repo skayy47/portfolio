@@ -1,6 +1,8 @@
 "use client";
 
 import { CountUp } from "@/components/ui/CountUp";
+import { CaseNav } from "@/components/sections/CaseNav";
+import { CaseHero } from "@/components/sections/CaseHero";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -260,6 +262,10 @@ export default function MaestroDemo() {
         </div>
       </section>
 
+      <div style={{ padding: "0 24px" }}>
+        <CaseHero id="maestro" poster="/cinematics/maestro" alt="MAESTRO — multi-agent command center" surface={C.surface} border={C.border} />
+      </div>
+
       {/* ── stats ── */}
       <section style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 80px" }}>
         <div style={{
@@ -463,6 +469,9 @@ export default function MaestroDemo() {
           </a>
         </div>
       </section>
+
+      <CaseNav current="maestro" accent={C.accentLight} border={C.border} />
+
 
       <footer style={{ borderTop: `1px solid ${C.border}`, padding: "24px", textAlign: "center", fontSize: 12, color: C.textMuted }}>
         MAESTRO — built by <a href="/" style={{ color: C.accentLight, textDecoration: "none" }}>SKAY</a> · Multi-Agent Command Center · Deployed on Vercel

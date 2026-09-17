@@ -1,6 +1,7 @@
 "use client";
 
 import { CountUp } from "@/components/ui/CountUp";
+import { CaseNav } from "@/components/sections/CaseNav";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -329,6 +330,8 @@ export default function WalmartDemo() {
           Built by <a href="/" style={{ color: C.textSub, textDecoration: "none" }}>SKAY · Oussama Skia</a> — AI / ML Engineer · Casablanca
         </p>
       </section>
+
+      <CaseNav current="walmart" accent={C.accentB} border={C.border} />
 
       <style>{`
         @keyframes pulse {

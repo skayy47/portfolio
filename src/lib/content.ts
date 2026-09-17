@@ -32,7 +32,7 @@ export const PROJECT_BASE: ProjectBase[] = [
     tech: ["FastAPI", "Next.js", "Pandas", "Gemini", "Playwright", "TypeScript"],
     liveUrl: "https://aura-sooty-five-27.vercel.app",
     codeUrl: "https://github.com/skayy47/AURA",
-    poster: "/cinematics/aura.png",
+    poster: "/cinematics/aura",
     video: "/cinematics/aura.mp4",
     accent: 1,
     demo: "aura",
@@ -43,7 +43,7 @@ export const PROJECT_BASE: ProjectBase[] = [
     tech: ["FastAPI", "Next.js", "LangChain", "pgvector", "Groq", "Supabase"],
     liveUrl: "https://nexussss-two.vercel.app",
     codeUrl: "https://github.com/skayy47/nexus",
-    poster: "/cinematics/nexus.png",
+    poster: "/cinematics/nexus",
     video: null,
     accent: 3,
     demo: "nexus",
@@ -54,7 +54,7 @@ export const PROJECT_BASE: ProjectBase[] = [
     tech: ["Next.js", "TypeScript", "Groq", "Tavily", "Framer Motion", "Vitest"],
     liveUrl: "https://maestro-lac-theta.vercel.app",
     codeUrl: "https://github.com/skayy47/maestro",
-    poster: "/cinematics/maestro.png",
+    poster: "/cinematics/maestro",
     video: null,
     accent: 2,
     demo: "maestro",
@@ -88,6 +88,10 @@ export interface SiteContent {
     lensBusiness: string;
     lensTechnical: string;
     readMore: string;
+    caseStudy: string;
+    /** Cursor labels — uppercased in CSS, so written in sentence case here. */
+    cursorOpen: string;
+    cursorCase: string;
     readLess: string;
   };
   nav: { work: string; approach: string; journey: string; stack: string; services: string; contact: string; talk: string };
@@ -157,7 +161,7 @@ const STACK_GROUPS = (g: string[]) => g; // identity, keeps arrays terse
 export const CONTENT: Record<Locale, SiteContent> = {
   /* ------------------------------------------------------------------ EN */
   en: {
-    ui: { openLive: "Open live", source: "Source", live: "Live", liveDemo: "Live demo", palette: "Palette", langName: "EN", lensLabel: "View", lensBusiness: "Business", lensTechnical: "Technical", readMore: "Read more", readLess: "Show less" },
+    ui: { openLive: "Open live", source: "Source", live: "Live", liveDemo: "Live demo", palette: "Palette", langName: "EN", lensLabel: "View", lensBusiness: "Business", lensTechnical: "Technical", readMore: "Read more", readLess: "Show less", caseStudy: "Case study", cursorOpen: "Open live", cursorCase: "Case study" },
     systemsMap: {
       stages: { data: "DATA", memory: "MEMORY", agents: "AGENTS" },
       nodes: {
@@ -375,7 +379,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
 
   /* ------------------------------------------------------------------ FR */
   fr: {
-    ui: { openLive: "Voir en ligne", source: "Code", live: "En ligne", liveDemo: "Démo live", palette: "Palette", langName: "FR", lensLabel: "Vue", lensBusiness: "Métier", lensTechnical: "Technique", readMore: "Lire plus", readLess: "Réduire" },
+    ui: { openLive: "Voir en ligne", source: "Code", live: "En ligne", liveDemo: "Démo live", palette: "Palette", langName: "FR", lensLabel: "Vue", lensBusiness: "Métier", lensTechnical: "Technique", readMore: "Lire plus", readLess: "Réduire", caseStudy: "Étude de cas", cursorOpen: "Voir en ligne", cursorCase: "Étude de cas" },
     systemsMap: {
       stages: { data: "DONNÉE", memory: "MÉMOIRE", agents: "AGENTS" },
       nodes: {

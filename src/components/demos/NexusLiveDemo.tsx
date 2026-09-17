@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { DemoState } from "@/lib/project-focus";
 
 export interface NexusContent {
   // Scene 0 — Auto-Summary
@@ -54,71 +55,94 @@ const SearchIcon = () => (
   </svg>
 );
 
-export function NexusLiveDemo({ content }: { content: NexusContent }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [on, setOn] = useState(false);
+export function NexusLiveDemo({ content, state }: { content: NexusContent; state: DemoState }) {
   const [scene, setScene] = useState(0);
   const [step, setStep] = useState(0);
   const [charCount, setCharCount] = useState(0);
 
+  // The three counters live in refs rather than in the timer effect's closure.
+  // They used to be `let sc/st/c`, destroyed on every cleanup — so any pause
+  // threw the reader back to scene 0 the moment they scrolled away and back.
+  const sceneRef = useRef(0);
+  const stepRef = useRef(0);
+  const charRef = useRef(0);
+  const streamId = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // A restart belongs to a content change (language / lens switch), never to a
+  // pause. This is the reset that used to sit at the top of the timer effect.
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((x) => setOn(x.isIntersecting)),
-      { threshold: 0.3 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    sceneRef.current = 0;
+    stepRef.current = 0;
+    charRef.current = 0;
+    setScene(0);
+    setStep(0);
+    setCharCount(0);
+  }, [content.answer]);
 
   useEffect(() => {
-    if (!on) return;
-    let sc = 0;
-    let st = 0;
-    let streamId: ReturnType<typeof setInterval> | null = null;
-
-    setScene(0); setStep(0); setCharCount(0);
+    if (state !== "play") return;
+    const answerLen = content.answer.length;
 
     const stopStream = () => {
-      if (streamId) { clearInterval(streamId); streamId = null; }
+      if (streamId.current) {
+        clearInterval(streamId.current);
+        streamId.current = null;
+      }
     };
 
+    // Resumes from charRef — it does not rewind the answer to zero.
     const startStream = () => {
       stopStream();
-      let c = 0;
-      setCharCount(0);
-      streamId = setInterval(() => {
-        c++;
-        setCharCount(c);
-        if (c >= content.answer.length) stopStream();
+      streamId.current = setInterval(() => {
+        charRef.current++;
+        setCharCount(charRef.current);
+        if (charRef.current >= answerLen) stopStream();
       }, CHAR_DELAY_MS);
     };
 
+    // Picked up mid-answer: keep typing where we stopped.
+    if (sceneRef.current === 1 && stepRef.current >= 4 && charRef.current < answerLen) startStream();
+
     const tick = setInterval(() => {
-      st++;
-      if (st > STEPS_PER_SCENE) {
+      stepRef.current++;
+      if (stepRef.current > STEPS_PER_SCENE) {
         stopStream();
-        st = 0;
-        sc = (sc + 1) % NUM_SCENES;
-        setScene(sc);
+        stepRef.current = 0;
+        sceneRef.current = (sceneRef.current + 1) % NUM_SCENES;
+        setScene(sceneRef.current);
+        charRef.current = 0;
         setCharCount(0);
       }
-      setStep(st);
-      if (sc === 1 && st === 4) startStream();
+      setStep(stepRef.current);
+      if (sceneRef.current === 1 && stepRef.current === 4) {
+        charRef.current = 0;
+        startStream();
+      }
     }, STEP_MS);
 
     return () => {
       clearInterval(tick);
       stopStream();
     };
-  }, [on, content.answer.length]);
+  }, [state, content.answer]);
+
+  // Settled frame: scene 0 at its fullest — file chip, progress complete,
+  // summary card and the question chips. A demo paused at step 0 is a blank box.
+  useEffect(() => {
+    if (state !== "still") return;
+    sceneRef.current = 0;
+    stepRef.current = STEPS_PER_SCENE;
+    charRef.current = content.answer.length;
+    setScene(0);
+    setStep(STEPS_PER_SCENE);
+    setCharCount(content.answer.length);
+  }, [state, content.answer]);
 
   const displayedAnswer = content.answer.slice(0, charCount);
   const answerDone = charCount >= content.answer.length;
 
   return (
-    <div ref={ref} className="demo demo-nexus" data-demo-accent="3">
+    <div className="demo demo-nexus" data-demo-accent="3">
       <div className="demo-glow" />
 
       {/* Feature scene navigator */}

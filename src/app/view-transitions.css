@@ -1,0 +1,43 @@
+/* ---- View transitions -------------------------------------------- *
+ * Kept out of globals.css as a separate concern, not out of necessity: an
+ * earlier version of this file claimed Tailwind strips ::view-transition-*
+ * rules. It does not. That reading came from a stale Turbopack CSS cache,
+ * which also swallowed an unrelated edit later the same session — if a rule
+ * you just wrote is missing from the served bundle, delete .next before
+ * concluding anything about the pipeline.
+ *
+ * The morph from a project's stage into its case study. The two pages are
+ * light and dark, and no amount of tuning makes a theme crossfade look
+ * deliberate — so the world behind goes dark fast while the frame flies above
+ * it. That reads as "the frame lifted off", which is the true story.
+ * ------------------------------------------------------------------- */
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease);
+  /* Above the root crossfade, so the frame is never dimmed by it mid-flight. */
+  z-index: 20;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+/* The outgoing frame is a live demo mid-scene and the incoming one is a still
+   poster — two unlike pictures. A touch of blur at the crossover hides the
+   interpolation instead of drawing attention to it. */
+@keyframes via-blur {
+  30% {
+    filter: blur(4px);
+  }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

@@ -1,8 +1,9 @@
-// Premium light palette collection. The actual CSS variable values live in
-// globals.css under [data-theme="<id>"]. This file is the source of truth for
-// the switcher UI (names + swatches) and the default order.
+// Premium palette collection — five light plus one dark. The actual CSS
+// variable values live in globals.css under [data-theme="<id>"]. This file is
+// the source of truth for the switcher UI (names + swatches) and the default
+// order.
 
-export type ThemeId = "aurora" | "champagne" | "pearl" | "sorbet" | "lagoon";
+export type ThemeId = "aurora" | "champagne" | "pearl" | "sorbet" | "lagoon" | "obsidian";
 
 export interface Theme {
   id: ThemeId;
@@ -43,6 +44,15 @@ export const THEMES: Theme[] = [
     blurb: "Teal · aqua · emerald",
     swatch: ["#0FB5A0", "#1FA7C9", "#34C77B"],
   },
+  {
+    id: "obsidian",
+    name: "Obsidian",
+    // Leads with the base so the dark one is recognisable as dark in a row of
+    // five light chips — lifted off the true #080A12 background, which would
+    // otherwise vanish into the switcher panel once Obsidian is active.
+    blurb: "Midnight · indigo · cyan",
+    swatch: ["#151A2E", "#7C8BFF", "#4FD9F0"],
+  },
 ];
 
 export const DEFAULT_THEME: ThemeId = "aurora";
@@ -54,4 +64,5 @@ export const THEME_GL: Record<ThemeId, { a: string; b: string; c: string; bg: st
   pearl: { a: "#E06AA6", b: "#9B6BE0", c: "#46D6B6", bg: "#FCF8FB" },
   sorbet: { a: "#FF6B5B", b: "#FF9E6B", c: "#FF7DA8", bg: "#FFF8F4" },
   lagoon: { a: "#0FB5A0", b: "#1FA7C9", c: "#34C77B", bg: "#F2FBF8" },
+  obsidian: { a: "#7C8BFF", b: "#B07CFF", c: "#4FD9F0", bg: "#080A12" },
 };

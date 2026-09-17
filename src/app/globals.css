@@ -5,7 +5,7 @@
 
 /* ------------------------------------------------------------------ *
  *  SKAY — premium portfolio design system
- *  5 light palettes (no dark mode), iridescent "aurora tech" lead.
+ *  6 palettes — 5 light plus Obsidian, iridescent "aurora tech" lead.
  * ------------------------------------------------------------------ */
 
 @theme inline {
@@ -126,6 +126,88 @@
   --bloom-1: #4fd8c4;
   --bloom-2: #6fd8ec;
   --bloom-3: #74d89e;
+}
+
+/* ---- Palette: Obsidian (the dark one) ----------------------------- *
+ * The other five are light, and this is not an inversion of them. Dark UI
+ * needs its own decisions: text sits just under pure white so it does not
+ * halate, surfaces are lifted by a film of light rather than by a lighter
+ * colour, accents are lightened and slightly desaturated so they stop
+ * vibrating against the base, and --accent-ink flips from a darker accent to
+ * a lighter one because on dark it has to read ON the accent tint, not under it.
+ * ------------------------------------------------------------------- */
+[data-theme="obsidian"] {
+  --bg: #080a12;
+  --ink: #e9ecf7;
+  --text-soft: #a4acc6;
+  /* #6c7590 measured 4.32:1 on --bg — under AA for the 12px footer quote.
+     This clears it at 5.25:1, and still 4.83:1 over a surface film. */
+  --text-faint: #7a83a0;
+  --border: rgba(233, 236, 247, 0.1);
+  --border-2: rgba(233, 236, 247, 0.19);
+  /* A film of light, not a lighter colour — this is what keeps .glass reading
+     as glass on a dark base instead of as a grey rectangle. */
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.075);
+  --accent: #7c8bff;
+  --accent-2: #b07cff;
+  --accent-3: #4fd9f0;
+  --accent-ink: #b3bcff;
+  --glow: rgba(124, 139, 255, 0.34);
+  --bloom-1: #4a5cff;
+  --bloom-2: #8b4dff;
+  --bloom-3: #1fb6d8;
+
+  /* A shadow cast in ink is invisible on ink. On dark the lift has to come
+     from a deeper, wider black plus the hairline border above. */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 50px -22px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 2px 10px rgba(0, 0, 0, 0.55), 0 40px 90px -40px rgba(0, 0, 0, 0.85);
+}
+
+/* The cursor multiplies into a light page to stay visible. Multiply against
+   near-black renders it black on black — screen is its opposite number. */
+[data-theme="obsidian"] .cursor-dot,
+[data-theme="obsidian"] .cursor-ring {
+  mix-blend-mode: screen;
+}
+/* The label pill is painted in --ink, which is now near-white; screen would
+   blow it out and the text sits on it, so it opts out as it does elsewhere. */
+[data-theme="obsidian"] .cursor-ring[data-mode="label"] {
+  mix-blend-mode: normal;
+}
+
+/* The three live demos are pictures of light product UIs, and they stay light
+   on purpose — a lit screen on a dark desk reads better than a demo repainted
+   into a dark variant nobody designed. But their interiors consume the site's
+   own text tokens, so --ink flipping to near-white left the summary card's
+   headline invisible on its own white panel. Re-declaring the tokens on the
+   subtree hands every nested rule light-mode values again, without touching a
+   single one of them. Values mirror the Aurora palette.
+
+   --bg is deliberately absent: inside .demo it is used as a foreground colour
+   against an accent fill, where near-white is exactly right. */
+[data-theme="obsidian"] .demo {
+  --ink: #0b1020;
+  --text-soft: #46506a;
+  --text-faint: #8b93a8;
+  --border: rgba(11, 16, 32, 0.09);
+  --border-2: rgba(11, 16, 32, 0.15);
+  --surface-2: rgba(255, 255, 255, 0.86);
+  --shadow-soft: 0 1px 2px rgba(16, 18, 40, 0.04), 0 18px 50px -22px rgba(16, 18, 40, 0.18);
+}
+/* AURA's demo is the one that was always dark, so it keeps the light-on-dark
+   text it was designed with. */
+[data-theme="obsidian"] .demo-aura {
+  --ink: #e9ecf7;
+  --text-soft: #a4acc6;
+  --text-faint: #7a83a0;
+  --border: rgba(233, 236, 247, 0.12);
+  --border-2: rgba(233, 236, 247, 0.2);
+}
+
+/* The grain is a dark turbulence — barely present once the page is dark. */
+[data-theme="obsidian"] body::after {
+  opacity: 0.05;
 }
 
 /* ---- Base -------------------------------------------------------- */

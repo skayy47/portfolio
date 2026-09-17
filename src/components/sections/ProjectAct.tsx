@@ -35,6 +35,7 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
   const indexRef = useRef<HTMLSpanElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
   const footRef = useRef<HTMLDivElement>(null);
 
   // Layout effect so the act is in the store before the focus controller in
@@ -124,6 +125,53 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
 
         return () => split.revert();
       });
+
+      /* Cursor-tracked parallax on the active frame.
+         Safe here in a way it would not be on a normal card: .demo is
+         pointer-events:none and the whole stage is one link, so there is
+         nothing inside for the movement to push out from under the cursor. */
+      const mm = gsap.matchMedia();
+      mm.add("(pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+        const frame = frameRef.current;
+        const tilt = tiltRef.current;
+        if (!frame || !tilt) return;
+
+        gsap.set(tilt, { transformPerspective: 900, transformOrigin: "center" });
+        // quickTo, not quickSetter: it interpolates on the GSAP ticker Lenis
+        // already drives, so there is one clock and no second rAF loop.
+        const xTo = gsap.quickTo(tilt, "x", { duration: 0.65, ease: "site" });
+        const yTo = gsap.quickTo(tilt, "y", { duration: 0.65, ease: "site" });
+        const rxTo = gsap.quickTo(tilt, "rotationX", { duration: 0.9, ease: "site" });
+        const ryTo = gsap.quickTo(tilt, "rotationY", { duration: 0.9, ease: "site" });
+
+        const onMove = (e: PointerEvent) => {
+          // Only the act being read reacts. Moving a dimmed frame would make
+          // the page feel busy in exactly the way the focus system prevents.
+          if (actRef.current!.classList.contains("is-dim")) return;
+          const r = frame.getBoundingClientRect();
+          const nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+          const ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+          // Past roughly these amounts the frame visibly parts from its gutter.
+          xTo(nx * 10);
+          yTo(ny * 7);
+          ryTo(nx * 2.2);
+          rxTo(-ny * 1.8);
+        };
+        const reset = () => {
+          xTo(0);
+          yTo(0);
+          rxTo(0);
+          ryTo(0);
+        };
+
+        frame.addEventListener("pointermove", onMove);
+        frame.addEventListener("pointerleave", reset);
+        return () => {
+          frame.removeEventListener("pointermove", onMove);
+          frame.removeEventListener("pointerleave", reset);
+          reset();
+        };
+      });
     },
     // The FR copy is longer than the EN, and the lens rewrites it entirely, so
     // both change every measurement. revertOnUpdate is required: with non-empty
@@ -156,7 +204,7 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
 
       <div className="shell-wide act-stage">
         <div ref={frameRef} className="media-frame demo-frame act-frame">
-          <div className="act-frame-inner">
+          <div ref={tiltRef} className="act-frame-inner">
             <div className="act-demo-scale">
               <DemoStage projectId={base.id} demo={base.demo} />
             </div>
@@ -166,6 +214,7 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
               rel="noopener noreferrer"
               className="frame-link"
               data-cursor
+              data-cursor-label={c.ui.cursorOpen}
               aria-label={`${c.ui.openLive} — ${name}`}
             >
               <div className="media-veil" />

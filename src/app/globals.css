@@ -486,11 +486,50 @@ a {
   width: 38px;
   height: 38px;
   border: 1.5px solid var(--accent);
-  transition: opacity 0.3s var(--ease);
+  /* JS owns transform and opacity here; width/height/background/border are the
+     only things CSS animates, so there is nothing for the two to fight over. */
+  transition: opacity 0.3s var(--ease), width 0.34s var(--ease), height 0.34s var(--ease),
+    background-color 0.34s var(--ease), border-color 0.34s var(--ease), border-radius 0.34s var(--ease);
 }
+
+/* Morphed state: the ring becomes a solid pill sized to its label. */
+.cursor-ring[data-mode="label"] {
+  width: var(--cursor-pill-w, 116px);
+  height: 34px;
+  border-radius: 99px;
+  background: var(--ink);
+  border-color: transparent;
+  /* multiply would muddy the label against the page behind it. */
+  mix-blend-mode: normal;
+}
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  /* Auto width so JS can measure the real label and size the pill to it. */
+  display: inline-grid;
+  place-items: center;
+  padding-inline: 0.95rem;
+  height: 34px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity 0.22s var(--ease);
+}
+.cursor-ring[data-mode="label"] ~ .cursor-label {
+  opacity: 1;
+}
+
 @media (pointer: coarse) {
   .cursor-dot,
-  .cursor-ring {
+  .cursor-ring,
+  .cursor-label {
     display: none;
   }
 }

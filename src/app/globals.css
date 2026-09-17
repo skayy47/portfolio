@@ -975,6 +975,11 @@ a {
   }
 }
 
+/* GSAP writes transform here on every pointer move — no CSS transition on it. */
+.magnetic {
+  will-change: transform;
+}
+
 /* ---- Projects — the exhibition ------------------------------------ *
  * One "act" per project: an oversized outlined numeral and name, the live
  * demo edge to edge, then the reading matter. No alternation — the rhythm

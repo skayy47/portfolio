@@ -18,9 +18,19 @@ export function Cursor() {
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const ringPos = { ...pos };
     let mode: "idle" | "hover" | "label" = "idle";
+    let ready = false;
     let raf = 0;
 
     const move = (e: MouseEvent) => {
+      // Until the pointer has actually moved we do not know where it is, and
+      // parking a dot at 0,0 with a ring at the viewport centre is a visible
+      // artifact on every fresh load.
+      if (!ready) {
+        ready = true;
+        ringPos.x = e.clientX;
+        ringPos.y = e.clientY;
+        document.body.dataset.cursorReady = "1";
+      }
       pos.x = e.clientX;
       pos.y = e.clientY;
       if (dot.current) dot.current.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`;
@@ -52,7 +62,9 @@ export function Cursor() {
         // In label mode the pill is already the right size — scaling it would
         // magnify the text with it.
         ring.current.style.transform = mode === "label" ? at : `${at} scale(${mode === "hover" ? 1.9 : 1})`;
-        ring.current.style.opacity = mode === "idle" ? "0.55" : "1";
+        // The loop starts before the first move, so this must not reveal the
+        // ring ahead of the CSS that keeps it hidden until then.
+        ring.current.style.opacity = !ready ? "0" : mode === "idle" ? "0.55" : "1";
       }
       if (label.current) label.current.style.transform = at;
       raf = requestAnimationFrame(loop);
@@ -65,6 +77,7 @@ export function Cursor() {
 
     return () => {
       document.body.classList.remove("has-cursor");
+      delete document.body.dataset.cursorReady;
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
       cancelAnimationFrame(raf);

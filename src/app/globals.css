@@ -467,6 +467,15 @@ a {
 .has-cursor [data-cursor] {
   cursor: none;
 }
+/* Revealed by Cursor.tsx on the first pointer move — see the note there. */
+.cursor-dot,
+.cursor-ring,
+.cursor-label {
+  opacity: 0;
+}
+body[data-cursor-ready] .cursor-dot {
+  opacity: 1;
+}
 .cursor-dot,
 .cursor-ring {
   position: fixed;
@@ -1132,6 +1141,14 @@ a {
     height: var(--demo-h);
     transform-origin: top left;
     transform: scale(var(--demo-scale));
+  }
+  /* MAESTRO's stack fills ~63% of the canvas where AURA and nexus fill 97-100%,
+     so its air all pooled at the bottom and the frame read as unfinished.
+     Balanced by pushing it down rather than by centring: the deliverable pill
+     mounts late, and justify-content would shift the whole stack when it does.
+     Scoped to the canvas — below 900px this demo already fills its box. */
+  .act-demo-scale .demo-maestro {
+    padding-top: 5rem;
   }
 }
 

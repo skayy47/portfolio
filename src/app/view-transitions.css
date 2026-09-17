@@ -1,4 +1,11 @@
 /* ---- View transitions -------------------------------------------- *
+ * Kept out of globals.css as a separate concern, not out of necessity: an
+ * earlier version of this file claimed Tailwind strips ::view-transition-*
+ * rules. It does not. That reading came from a stale Turbopack CSS cache,
+ * which also swallowed an unrelated edit later the same session — if a rule
+ * you just wrote is missing from the served bundle, delete .next before
+ * concluding anything about the pipeline.
+ *
  * The morph from a project's stage into its case study. The two pages are
  * light and dark, and no amount of tuning makes a theme crossfade look
  * deliberate — so the world behind goes dark fast while the frame flies above

@@ -1191,6 +1191,13 @@ a {
 .act.is-dim .act-head {
   opacity: 0.68;
 }
+/* One-shot: un-dim with no transition, so a view-transition snapshot taken in
+   the same frame catches the act at full strength rather than mid-fade. */
+.act.is-instant .act-head,
+.act.is-instant .act-stage,
+.act.is-instant .act-foot {
+  transition: none;
+}
 /* A dimmed demo should not keep burning frames on its CSS keyframes either. */
 .act.is-dim .demo *,
 .act.is-dim .demo *::before,

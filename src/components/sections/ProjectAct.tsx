@@ -11,6 +11,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 import { Expandable } from "@/components/ui/Expandable";
 import { DemoStage } from "@/components/demos/DemoStage";
 import { forceActive, registerAct, WORK_RETURN_KEY } from "@/lib/project-focus";
+import { frameTransitionName, ViewTransition } from "@/components/ui/ViewTransition";
 
 const NAMES: Record<string, string> = { aura: "AURA", nexus: "nexus", maestro: "MAESTRO" };
 
@@ -204,34 +205,38 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
       </header>
 
       <div className="shell-wide act-stage">
-        <div ref={frameRef} className="media-frame demo-frame act-frame">
-          <div ref={tiltRef} className="act-frame-inner">
-            <div className="act-demo-scale">
-              <DemoStage projectId={base.id} demo={base.demo} />
-            </div>
-            <a
-              href={base.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="frame-link"
-              data-cursor
-              data-cursor-label={c.ui.cursorOpen}
-              aria-label={`${c.ui.openLive} — ${name}`}
-            >
-              <div className="media-veil" />
-              <div className="media-live">
-                <span className="live-pill">
-                  <span className="live-dot" style={{ position: "static" }} />
-                  {base.video ? c.ui.liveDemo : c.ui.live}
-                </span>
-                <span className="media-open">
-                  {c.ui.openLive}
-                  <ArrowOut size={14} />
-                </span>
+        {/* The stage and the case study's hero answer to the same name, so
+            the browser flies one element between the pages instead of cutting. */}
+        <ViewTransition name={frameTransitionName(base.id)} share="morph">
+          <div ref={frameRef} className="media-frame demo-frame act-frame">
+            <div ref={tiltRef} className="act-frame-inner">
+              <div className="act-demo-scale">
+                <DemoStage projectId={base.id} demo={base.demo} />
               </div>
-            </a>
+              <a
+                href={base.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="frame-link"
+                data-cursor
+                data-cursor-label={c.ui.cursorOpen}
+                aria-label={`${c.ui.openLive} — ${name}`}
+              >
+                <div className="media-veil" />
+                <div className="media-live">
+                  <span className="live-pill">
+                    <span className="live-dot" style={{ position: "static" }} />
+                    {base.video ? c.ui.liveDemo : c.ui.live}
+                  </span>
+                  <span className="media-open">
+                    {c.ui.openLive}
+                    <ArrowOut size={14} />
+                  </span>
+                </div>
+              </a>
+            </div>
           </div>
-        </div>
+        </ViewTransition>
       </div>
 
       <div ref={footRef} className="shell act-foot">
@@ -285,8 +290,9 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
                 } catch {
                   /* private mode — the return just lands at the top */
                 }
-                // Never let a dimmed frame be what the reader leaves on.
-                forceActive(base.id);
+                // Never let the morph capture a dimmed frame — and un-dim with
+                // no transition, or the snapshot catches it mid-fade at 0.42.
+                forceActive(base.id, true);
               }}
             >
               {c.ui.caseStudy}

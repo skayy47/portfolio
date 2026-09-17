@@ -79,10 +79,16 @@ function stateFor(id: string, e: Entry): DemoState {
  */
 function sync() {
   entries.forEach((e, id) => {
+    const dim = policy === "focus" && id !== activeId;
+    // Clear any one-shot transition suppression before dimming, so dimming
+    // always fades. Doing it here rather than on a timer keeps it deterministic
+    // — a rAF-based cleanup fired before the navigation snapshot and the frame
+    // flew at 0.42.
+    if (dim) e.el.classList.remove("is-instant");
     // The dim class goes on the INACTIVE acts, never the active one. With no JS,
     // a failed hydrate, or the motion-boot failsafe, nothing carries `.is-dim`
     // and every act reads at full strength. No CSS kill-switch required.
-    e.el.classList.toggle("is-dim", policy === "focus" && id !== activeId);
+    e.el.classList.toggle("is-dim", dim);
 
     const next = stateFor(id, e);
     if (next !== e.state) {
@@ -148,9 +154,17 @@ export function setPolicy(next: FocusPolicy) {
 /**
  * Make an act active regardless of scroll position. Used before a case-study
  * navigation so the shared-element morph never captures a dimmed frame.
+ *
+ * `instant` suppresses the dim transition for this one change. Dropping the
+ * class alone is not enough: the 0.55s opacity transition would still be in
+ * flight when the browser takes its snapshot, and the frame would fly at 0.42.
  */
-export function forceActive(id: string) {
+export function forceActive(id: string, instant = false) {
   if (policy !== "focus" || activeId === id) return;
+
+  // sync() clears this again the next time the act dims, so it needs no timer.
+  if (instant) entries.get(id)?.el.classList.add("is-instant");
+
   activeId = id;
   sync();
 }

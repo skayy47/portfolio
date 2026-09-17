@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./view-transitions.css";
 import { ThemeProvider, themeBootScript } from "@/components/providers/ThemeProvider";
 import { LangProvider, langBootScript } from "@/components/providers/LangProvider";
 import { LensProvider, lensBootScript } from "@/components/providers/LensProvider";

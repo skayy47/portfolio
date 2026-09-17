@@ -19,6 +19,7 @@ export function Footer() {
           <a href={IDENTITY.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href={IDENTITY.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href={IDENTITY.socials.email}>Email</a>
+          <a href="/services">{c.nav.services}</a>
         </div>
       </div>
       <div className="shell footer-base font-mono">

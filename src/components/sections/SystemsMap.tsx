@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PROJECT_BASE, ProjectId } from "@/lib/content";
 import { useLang } from "@/components/providers/LangProvider";
+import { useLens } from "@/components/providers/LensProvider";
 import { Reveal } from "@/components/ui/Reveal";
 
 const DISPLAY: Record<ProjectId, string> = { aura: "AURA", nexus: "nexus", maestro: "MAESTRO" };
@@ -20,6 +21,7 @@ const ACCENT: Record<1 | 2 | 3, string> = {
 /** Interactive AI Systems Map — AURA → NEXUS → MAESTRO as data → memory → agents. */
 export function SystemsMap() {
   const { c } = useLang();
+  const { lens } = useLens();
   const sm = c.systemsMap;
   const [active, setActive] = useState<ProjectId | null>(null);
 
@@ -58,13 +60,13 @@ export function SystemsMap() {
                       onMouseEnter={() => setActive(p.id)}
                       onFocus={() => setActive(p.id)}
                       onClick={() => go(p.id)}
-                      aria-label={`${DISPLAY[p.id]} — ${n.role}. ${n.thesis}`}
+                      aria-label={`${DISPLAY[p.id]} — ${n.role}. ${n.thesis[lens]}`}
                     >
                       <span className="sysmap-stage font-mono">{sm.stages[STAGE_OF[p.id]]}</span>
                       <span className="sysmap-orb" aria-hidden />
                       <span className="sysmap-name font-display">{DISPLAY[p.id]}</span>
                       <span className="sysmap-role font-mono">{n.role}</span>
-                      <span className="sysmap-thesis">{n.thesis}</span>
+                      <span className="sysmap-thesis">{n.thesis[lens]}</span>
                     </button>
                   );
                 })}

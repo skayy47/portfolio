@@ -4,7 +4,12 @@ import { useLens } from "@/components/providers/LensProvider";
 import { useLang } from "@/components/providers/LangProvider";
 import { LENSES } from "@/lib/content";
 
-/** Business ⇄ Technical view switch — reframes the hero and project framing. */
+/**
+ * Business ⇄ Technical view switch. It rewrites the hero, the work section's
+ * lead, every project's kicker/tagline/description/signature/metrics, the
+ * systems-map theses and the secondary blurbs — the same systems, described
+ * for whoever is reading. Rendered twice: in the hero and at the work head.
+ */
 export function LensToggle() {
   const { lens, setLens } = useLens();
   const { c } = useLang();

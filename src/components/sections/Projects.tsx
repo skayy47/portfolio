@@ -6,7 +6,7 @@ import { useLang } from "@/components/providers/LangProvider";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/motion";
 import { measureActs, resolvePolicy, setPolicy, setVisible, updateFocus } from "@/lib/project-focus";
-import { ProjectShowcase } from "./ProjectShowcase";
+import { ProjectAct } from "./ProjectAct";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
@@ -80,12 +80,12 @@ export function Projects() {
           </h2>
           <p className="section-lead">{c.work.lead}</p>
         </Reveal>
+      </div>
 
-        <div className="projects">
-          {PROJECT_BASE.map((p, i) => (
-            <ProjectShowcase key={p.id} base={p} flip={i % 2 === 1} />
-          ))}
-        </div>
+      <div className="acts">
+        {PROJECT_BASE.map((p) => (
+          <ProjectAct key={p.id} base={p} />
+        ))}
       </div>
     </section>
   );

@@ -426,8 +426,24 @@ a {
      instead of elements stranded at their from-state. */
   .gs-reveal,
   .hero-line-in,
-  .tl-rail-fill {
+  .tl-rail-fill,
+  .act-index,
+  .act-name,
+  .act-kicker,
+  .act-tagline,
+  .act-desc,
+  .act-foot .expandable-toggle,
+  .act-foot .metric-chip,
+  .act-foot .chip,
+  .act-actions > * {
     opacity: 1 !important;
+    transform: none !important;
+  }
+  /* The act's stage reveal is a clip-path, which no rule above resets. */
+  .act-frame {
+    clip-path: none !important;
+  }
+  .act-frame-inner {
     transform: none !important;
   }
 }
@@ -1073,6 +1089,36 @@ a {
     transform-origin: top left;
     transform: scale(var(--demo-scale));
   }
+}
+
+/* ---- pre-reveal states ------------------------------------------- *
+ * These exist ONLY under html.js-motion, which lib/motion-boot.ts adds before
+ * paint and strips again after 6s if the motion chunk never announced itself.
+ * A resting state that lived only inside a GSAP tween would be unreachable:
+ * GSAP writes inline styles, which the reduced-motion kill-switch above cannot
+ * undo. So nothing here is ever invisible without JS.
+ *
+ * .act-name is hidden as a whole because its per-character spans do not exist
+ * until SplitText runs; the timeline reveals the heading the moment they do.
+ * ------------------------------------------------------------------- */
+.js-motion .act-index,
+.js-motion .act-name,
+.js-motion .act-kicker,
+.js-motion .act-tagline,
+.js-motion .act-desc,
+.js-motion .act-foot .expandable-toggle,
+.js-motion .act-foot .metric-chip,
+.js-motion .act-foot .chip,
+.js-motion .act-actions > * {
+  opacity: 0;
+}
+.js-motion .act-index,
+.js-motion .act-name,
+.js-motion .act-frame-inner {
+  will-change: transform, opacity;
+}
+.js-motion .act-frame {
+  clip-path: inset(14% 8% 14% 8%);
 }
 
 /* ---- focus ------------------------------------------------------- *

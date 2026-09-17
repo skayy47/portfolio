@@ -30,7 +30,8 @@ const ArrowOut = ({ size = 16 }: { size?: number }) => (
 export function ProjectAct({ base }: { base: ProjectBase }) {
   const { c, locale } = useLang();
   const { lens } = useLens();
-  const t = c.projects[base.id];
+  // The act is written twice — once for an engineer, once for everyone else.
+  const t = c.projects[base.id][lens];
   const name = NAMES[base.id];
 
   const actRef = useRef<HTMLElement>(null);
@@ -43,6 +44,32 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
   // Layout effect so the act is in the store before the focus controller in
   // Projects — a parent, whose layout effects run after its children's — measures.
   useLayoutEffect(() => registerAct(base.id, actRef.current!), [base.id]);
+
+  /**
+   * A lens switch rewrites this act's words. Re-entering just those words says
+   * "this was re-described" — without re-performing the numeral, the name or
+   * the stage, none of which changed.
+   */
+  const firstLensRun = useRef(true);
+  useGSAP(
+    () => {
+      if (firstLensRun.current) {
+        firstLensRun.current = false;
+        return;
+      }
+      withMotion(() => {
+        const copy = [".act-kicker", ".act-tagline", ".act-desc", ".signature li", ".act-foot .metric-chip"].flatMap(
+          (sel) => gsap.utils.toArray<HTMLElement>(actRef.current!.querySelectorAll(sel))
+        );
+        gsap.fromTo(
+          copy,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "siteOut", stagger: 0.025, overwrite: "auto" }
+        );
+      });
+    },
+    { scope: actRef, dependencies: [lens], revertOnUpdate: false }
+  );
 
   useGSAP(
     () => {
@@ -175,11 +202,11 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
         };
       });
     },
-    // The FR copy is longer than the EN, and the lens rewrites it entirely, so
-    // both change every measurement. revertOnUpdate is required: with non-empty
-    // dependencies @gsap/react defers cleanup to unmount, which would stack a
-    // second set of triggers on the same elements.
-    { scope: actRef, dependencies: [locale, lens], revertOnUpdate: true }
+    // Locale only. The lens deliberately does NOT replay this: the project name
+    // and numeral are identical in both lenses, so re-running their entrance on
+    // a copy switch is motion for its own sake. The copy that actually changes
+    // gets its own, lighter acknowledgement below.
+    { scope: actRef, dependencies: [locale], revertOnUpdate: true }
   );
 
   return (

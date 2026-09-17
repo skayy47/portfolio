@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLang } from "@/components/providers/LangProvider";
+import { useLens } from "@/components/providers/LensProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { CASE_ORDER, type CaseSlug } from "./CaseNav";
 
@@ -9,6 +10,7 @@ const hasCaseStudy = (id: string): id is CaseSlug => (CASE_ORDER as readonly str
 
 export function MoreProjects() {
   const { c } = useLang();
+  const { lens } = useLens();
   return (
     <section id="more" className="section more-section">
       <div className="shell">
@@ -37,7 +39,7 @@ export function MoreProjects() {
                   </div>
                 </div>
 
-                <p className="more-blurb">{m.blurb}</p>
+                <p className="more-blurb">{m.blurb[lens]}</p>
 
                 <div className="more-meta">
                   <span className="metric-chip font-mono">{m.metric}</span>

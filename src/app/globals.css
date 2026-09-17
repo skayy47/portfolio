@@ -1036,6 +1036,51 @@ body[data-cursor-ready] .cursor-dot {
 .work-head {
   margin-bottom: 1rem;
 }
+/* Held blank between first paint and hydration, but only for a reader whose
+   saved lens is not the one the page was prerendered with — see
+   LensProvider's boot script. visibility, not display: the layout is already
+   correct, it is only the words that are about to be replaced. */
+html[data-lens-pending] .section-lead,
+html[data-lens-pending] .act-kicker,
+html[data-lens-pending] .act-tagline,
+html[data-lens-pending] .act-desc,
+html[data-lens-pending] .signature,
+html[data-lens-pending] .project-metrics,
+html[data-lens-pending] .sysmap-thesis,
+html[data-lens-pending] .more-blurb,
+html[data-lens-pending] .demo-chips,
+html[data-lens-pending] .demo-caption {
+  visibility: hidden;
+}
+
+/* The lens control at the work head — the section it actually rewrites. */
+.work-lens {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--border);
+}
+.work-lens-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.work-lens-hint {
+  font-size: 0.86rem;
+  color: var(--text-soft);
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  .work-lens-hint {
+    flex-basis: 100%;
+  }
+}
+
 .acts {
   display: flex;
   flex-direction: column;

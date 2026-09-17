@@ -3,11 +3,13 @@
 import { useEffect } from "react";
 import { PROJECT_BASE } from "@/lib/content";
 import { useLang } from "@/components/providers/LangProvider";
+import { useLens } from "@/components/providers/LensProvider";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/motion";
 import { measureActs, resolvePolicy, setPolicy, setVisible, updateFocus, WORK_RETURN_KEY } from "@/lib/project-focus";
 import { ProjectAct } from "./ProjectAct";
 import { Reveal } from "@/components/ui/Reveal";
+import { LensToggle } from "@/components/ui/LensToggle";
 
 /**
  * Hosts the one focus controller for the page. Modelled on Nav.tsx: a single
@@ -105,6 +107,7 @@ function useReturnToAct() {
 
 export function Projects() {
   const { c } = useLang();
+  const { lens } = useLens();
   useProjectFocus();
   useReturnToAct();
 
@@ -117,7 +120,16 @@ export function Projects() {
             {c.work.title.pre}
             <span className="grad-text">{c.work.title.grad}</span>
           </h2>
-          <p className="section-lead">{c.work.lead}</p>
+          <p className="section-lead">{c.work.lead[lens]}</p>
+        </Reveal>
+
+        {/* The lens control's second home. It used to live only inside the hero,
+            where it is out of sight by the time it would matter — this is the
+            section it actually rewrites, so it belongs here too. */}
+        <Reveal className="work-lens" delay={60}>
+          <span className="work-lens-label font-mono">{c.ui.lensRead}</span>
+          <LensToggle />
+          <span className="work-lens-hint">{c.ui.lensHint}</span>
         </Reveal>
       </div>
 

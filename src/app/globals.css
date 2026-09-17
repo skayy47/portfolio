@@ -1075,6 +1075,39 @@ a {
   }
 }
 
+/* ---- focus ------------------------------------------------------- *
+ * One act at a time carries the reader's attention. The class goes on the
+ * INACTIVE acts, never the active one — so with no JS, a failed hydrate, or
+ * the motion-boot failsafe, nothing is dimmed and every act reads at full
+ * strength. That polarity is why this needs no reduced-motion kill-switch.
+ *
+ * Transitioning opacity is safe: GSAP owns transform on .act-frame-inner and
+ * .act-index, and never writes opacity or filter on these elements. Dimming
+ * with filter would be wrong twice over — it costs more on a 1400px surface,
+ * and a filter on an ancestor creates a containing block that breaks the
+ * shared-element capture on a case-study navigation.
+ * ------------------------------------------------------------------- */
+.act-head,
+.act-stage,
+.act-foot {
+  transition: opacity 0.55s var(--ease);
+}
+/* Per part, not one opacity on .act: a parent's opacity cannot be undone by a
+   child, and the numeral should stay more present than the body copy. */
+.act.is-dim .act-stage,
+.act.is-dim .act-foot {
+  opacity: 0.42;
+}
+.act.is-dim .act-head {
+  opacity: 0.68;
+}
+/* A dimmed demo should not keep burning frames on its CSS keyframes either. */
+.act.is-dim .demo *,
+.act.is-dim .demo *::before,
+.act.is-dim .demo *::after {
+  animation-play-state: paused;
+}
+
 /* ---- foot ---- */
 .act-foot {
   display: grid;

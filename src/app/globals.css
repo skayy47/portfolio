@@ -1580,7 +1580,12 @@ body[data-cursor-ready] .cursor-dot {
 .demo-caption {
   position: absolute;
   left: 5%;
-  bottom: 6%;
+  /* Clear of the frame's own Live pill, which is anchored 1rem from the
+     bottom of the frame and used to sit straight on top of this. A fixed
+     offset, not a percentage: the pill's footprint is roughly constant, while
+     a percentage of the canvas shrinks with the frame and stops clearing it
+     on a phone. */
+  bottom: 4.6rem;
   font-size: 0.68rem;
   color: var(--text-soft);
   z-index: 2;

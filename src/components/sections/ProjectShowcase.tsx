@@ -1,10 +1,12 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { ProjectBase } from "@/lib/content";
 import { useLang } from "@/components/providers/LangProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { LiveDemo } from "@/components/demos/LiveDemo";
+import { DemoStage } from "@/components/demos/DemoStage";
+import { registerAct } from "@/lib/project-focus";
 import { Expandable } from "@/components/ui/Expandable";
 
 const NAMES: Record<string, string> = { aura: "AURA", nexus: "nexus", maestro: "MAESTRO" };
@@ -13,13 +15,18 @@ export function ProjectShowcase({ base, flip }: { base: ProjectBase; flip: boole
   const { c } = useLang();
   const t = c.projects[base.id];
   const name = NAMES[base.id];
+  const actRef = useRef<HTMLElement>(null);
+
+  // Layout effect, so the act is in the store before the focus controller in
+  // Projects (a parent — its layout effects run after its children's) measures.
+  useLayoutEffect(() => registerAct(base.id, actRef.current!), [base.id]);
 
   return (
-    <article id={`project-${base.id}`} className={`project ${flip ? "project-flip" : ""}`} data-accent={base.accent}>
+    <article ref={actRef} id={`project-${base.id}`} className={`project ${flip ? "project-flip" : ""}`} data-accent={base.accent}>
       {/* Live demo — frame is click-through to the real app. */}
       <Reveal className="project-media-wrap">
         <div className="media-frame demo-frame">
-          <LiveDemo demo={base.demo} />
+          <DemoStage projectId={base.id} demo={base.demo} />
           <a
             href={base.liveUrl}
             target="_blank"

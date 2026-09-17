@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLang } from "@/components/providers/LangProvider";
 import { IDENTITY } from "@/lib/identity";
 
@@ -19,6 +20,7 @@ export function Footer() {
           <a href={IDENTITY.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href={IDENTITY.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href={IDENTITY.socials.email}>Email</a>
+          <Link href="/services">{c.nav.services}</Link>
         </div>
       </div>
       <div className="shell footer-base font-mono">

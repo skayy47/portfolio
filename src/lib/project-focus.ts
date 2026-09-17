@@ -35,6 +35,9 @@ export type DemoState = "play" | "pause" | "still";
  */
 export type FocusPolicy = "focus" | "visible" | "still";
 
+/** Which act to scroll back to after a case study. See ProjectAct's CTA. */
+export const WORK_RETURN_KEY = "work:return";
+
 interface Entry {
   el: HTMLElement;
   /** Document-space centre, cached on refresh — never measured while scrolling. */

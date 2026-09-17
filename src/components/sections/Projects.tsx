@@ -5,7 +5,7 @@ import { PROJECT_BASE } from "@/lib/content";
 import { useLang } from "@/components/providers/LangProvider";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/motion";
-import { measureActs, resolvePolicy, setPolicy, setVisible, updateFocus } from "@/lib/project-focus";
+import { measureActs, resolvePolicy, setPolicy, setVisible, updateFocus, WORK_RETURN_KEY } from "@/lib/project-focus";
 import { ProjectAct } from "./ProjectAct";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -65,9 +65,48 @@ function useProjectFocus() {
   }, []);
 }
 
+/**
+ * Put the reader back on the act they left from when they return from a case
+ * study. Waits for fonts, because FR copy reflows every measurement.
+ */
+function useReturnToAct() {
+  useEffect(() => {
+    let id: string | null = null;
+    try {
+      id = sessionStorage.getItem(WORK_RETURN_KEY);
+      if (id) sessionStorage.removeItem(WORK_RETURN_KEY);
+    } catch {
+      return;
+    }
+    if (!id) return;
+
+    const el = document.getElementById(`project-${id}`);
+    if (!el) return;
+
+    const land = () => {
+      // Lenis survives the client navigation while the document is replaced, so
+      // its cached scroll height belongs to the case study. Without the resize
+      // it clamps the target and lands short.
+      window.__lenis?.resize();
+      ScrollTrigger.refresh();
+      if (window.__lenis) window.__lenis.scrollTo(el, { immediate: true, offset: -10 });
+      else el.scrollIntoView();
+    };
+
+    // Landing is idempotent, so run it at each point the page can still move
+    // under us: now, after the router's own scroll reset, and once the fonts
+    // have reflowed everything (FR copy is longer than EN).
+    land();
+    const t = setTimeout(land, 140);
+    document.fonts?.ready.then(land);
+    return () => clearTimeout(t);
+  }, []);
+}
+
 export function Projects() {
   const { c } = useLang();
   useProjectFocus();
+  useReturnToAct();
 
   return (
     <section id="work" className="section">

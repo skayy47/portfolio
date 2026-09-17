@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Link from "next/link";
 import { ProjectBase } from "@/lib/content";
 import { useLang } from "@/components/providers/LangProvider";
 import { useLens } from "@/components/providers/LensProvider";
@@ -9,7 +10,7 @@ import { withMotion } from "@/lib/motion";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { Expandable } from "@/components/ui/Expandable";
 import { DemoStage } from "@/components/demos/DemoStage";
-import { registerAct } from "@/lib/project-focus";
+import { forceActive, registerAct, WORK_RETURN_KEY } from "@/lib/project-focus";
 
 const NAMES: Record<string, string> = { aura: "AURA", nexus: "nexus", maestro: "MAESTRO" };
 
@@ -270,6 +271,29 @@ export function ProjectAct({ base }: { base: ProjectBase }) {
                 <ArrowOut />
               </a>
             </Magnetic>
+            <Link
+              href={`/work/${base.id}`}
+              className="btn btn-ghost"
+              data-cursor
+              data-cursor-label={c.ui.cursorCase}
+              onClick={() => {
+                // Remember where to put the reader back. sessionStorage rather
+                // than a hash: Next's native hash scroll and Lenis fight over
+                // the same scrollTop on first paint.
+                try {
+                  sessionStorage.setItem(WORK_RETURN_KEY, base.id);
+                } catch {
+                  /* private mode — the return just lands at the top */
+                }
+                // Never let a dimmed frame be what the reader leaves on.
+                forceActive(base.id);
+              }}
+            >
+              {c.ui.caseStudy}
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M5 3l5 5-5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
             <a href={base.codeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" data-cursor>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38v-1.34c-2.23.49-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 014 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>
               {c.ui.source}

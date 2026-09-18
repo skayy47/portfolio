@@ -198,19 +198,19 @@ export default function WalmartDemo() {
     <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "var(--font-grotesk), system-ui, sans-serif" }}>
 
       {/* ── back bar ── */}
-      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${C.border}`, background: C.bg + "ee", backdropFilter: "blur(12px)" }}>
-        <a href="/" style={{ color: C.textSub, fontSize: "0.8rem", textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 8, transition: "color 0.2s" }}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: 8, borderBottom: `1px solid ${C.border}`, background: C.bg + "ee", backdropFilter: "blur(12px)" }}>
+        <a href="/" style={{ color: C.textSub, fontSize: "0.8rem", textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap", transition: "color 0.2s" }}
           onMouseEnter={e => (e.currentTarget.style.color = C.text)}
           onMouseLeave={e => (e.currentTarget.style.color = C.textSub)}>
           ← SKAY · Portfolio
         </a>
         <div style={{ display: "flex", gap: 10 }}>
           <a href="https://walmart-sales-forecasting-skay.streamlit.app" target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: "0.78rem", padding: "6px 14px", background: C.accent, color: "#000", borderRadius: 6, fontWeight: 700, textDecoration: "none", letterSpacing: "0.04em" }}>
+            style={{ fontSize: "0.78rem", padding: "11px 14px", background: C.accent, color: "#000", borderRadius: 6, fontWeight: 700, textDecoration: "none", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>
             Open Live App ↗
           </a>
           <a href="https://github.com/skayy47/walmart-sales-forecasting" target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: "0.78rem", padding: "6px 14px", border: `1px solid ${C.border}`, color: C.textSub, borderRadius: 6, textDecoration: "none", letterSpacing: "0.04em" }}>
+            style={{ fontSize: "0.78rem", padding: "11px 14px", border: `1px solid ${C.border}`, color: C.textSub, borderRadius: 6, textDecoration: "none", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>
             GitHub
           </a>
         </div>
@@ -244,7 +244,7 @@ export default function WalmartDemo() {
       {/* ── what i built ── */}
       <section style={{ padding: "clamp(40px, 6vw, 80px) clamp(20px, 6vw, 80px)", maxWidth: 960, margin: "0 auto" }}>
         <p style={{ fontSize: "0.72rem", color: C.accent, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 32 }}>What I built</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 20 }}>
           {WHAT.map(({ k, title, body }) => (
             <div key={k} style={{ padding: 24, background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12 }}>
               <div style={{ fontSize: "0.7rem", color: C.accent, fontFamily: "var(--font-jb)", marginBottom: 10, opacity: 0.7 }}>{k}</div>

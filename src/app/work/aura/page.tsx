@@ -199,20 +199,24 @@ export default function AuraCaseStudy() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 28px", height: 56,
+        flexWrap: "wrap", rowGap: 8,
+        // Never let the wordmark or the CTA pair wrap mid-text — on a narrow
+        // phone the whole pair drops to its own row instead. minHeight, not
+        // height, so the box can grow when it does.
+        padding: "12px 28px", minHeight: 56,
         background: "rgba(6,7,15,0.85)", backdropFilter: "blur(16px)",
         borderBottom: `1px solid ${C.border}`,
       }}>
-        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em" }}>
+        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>
           ← SKAY · PORTFOLIO
         </Link>
         <div style={{ display: "flex", gap: 12 }}>
           <a href={LIVE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ padding: "7px 16px", background: C.accent, borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none" }}>
+            style={{ padding: "11px 16px", background: C.accent, borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}>
             Open Live App ↗
           </a>
           <a href={CODE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ padding: "7px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none" }}>
+            style={{ padding: "11px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none", whiteSpace: "nowrap" }}>
             GitHub
           </a>
         </div>
@@ -290,7 +294,7 @@ export default function AuraCaseStudy() {
             It reads the data. It doesn&apos;t guess.
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 16 }}>
           {FEATURES.map((f) => <FeatureCard key={f.num} {...f} />)}
         </div>
       </section>
@@ -319,7 +323,7 @@ export default function AuraCaseStudy() {
 
       {/* ── role inference ── */}
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 32, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 32, alignItems: "start" }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: C.teal, letterSpacing: "0.12em", marginBottom: 12 }}>COLUMN-ROLE INFERENCE</div>
             <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, letterSpacing: "-0.8px", margin: "0 0 16px" }}>

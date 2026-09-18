@@ -236,11 +236,15 @@ export default function NexusDemo() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 28px", height: 56,
+        flexWrap: "wrap", rowGap: 8,
+        // Never let the wordmark or the CTA pair wrap mid-text — on a narrow
+        // phone the whole pair drops to its own row instead. minHeight, not
+        // height, so the box can grow when it does.
+        padding: "12px 28px", minHeight: 56,
         background: "rgba(4,8,15,0.85)", backdropFilter: "blur(16px)",
         borderBottom: `1px solid ${C.border}`,
       }}>
-        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em" }}>
+        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>
           ← SKAY · PORTFOLIO
         </Link>
         <div style={{ display: "flex", gap: 12 }}>
@@ -248,8 +252,8 @@ export default function NexusDemo() {
             href="https://nexussss-two.vercel.app"
             target="_blank" rel="noopener noreferrer"
             style={{
-              padding: "7px 16px", background: C.accent, borderRadius: 8,
-              fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none", letterSpacing: "0.02em",
+              padding: "11px 16px", background: C.accent, borderRadius: 8,
+              fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none", letterSpacing: "0.02em", whiteSpace: "nowrap",
             }}
           >
             Open Live App ↗
@@ -258,8 +262,8 @@ export default function NexusDemo() {
             href="https://github.com/skayy47/nexus"
             target="_blank" rel="noopener noreferrer"
             style={{
-              padding: "7px 14px", background: "transparent", border: `1px solid ${C.border}`,
-              borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none",
+              padding: "11px 14px", background: "transparent", border: `1px solid ${C.border}`,
+              borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none", whiteSpace: "nowrap",
             }}
           >
             GitHub
@@ -276,12 +280,21 @@ export default function NexusDemo() {
           padding: "6px 16px", borderRadius: 999,
           background: C.accentDim, border: `1px solid ${C.accent}`,
           marginBottom: 32,
+          // Hard ceiling: without this, nowrap text below can force the
+          // inline-flex box past the viewport with nothing left to shrink it.
+          maxWidth: "100%",
         }}>
           <span style={{
             width: 7, height: 7, borderRadius: "50%", background: C.accent,
             animation: "pulse 2s infinite",
           }} />
-          <span style={{ fontSize: 11, fontWeight: 700, color: C.accent, letterSpacing: "0.12em" }}>
+          {/* letterSpacing trimmed from the site's usual 0.12em: the one badge
+              on the four case pages long enough to need it. Still wraps to a
+              second line under ~360px -- deliberately not forced to nowrap, since
+              the container above has no room left to shrink into at that point
+              (see its maxWidth comment) and forcing one line there caused real
+              horizontal page overflow at 320px, not just an odd pill shape. */}
+          <span style={{ fontSize: 11, fontWeight: 700, color: C.accent, letterSpacing: "0.06em" }}>
             PRODUCTION RAG · HYBRID RETRIEVAL · LIVE
           </span>
         </div>
@@ -365,7 +378,7 @@ export default function NexusDemo() {
             Four systems. Zero tolerance for hallucination.
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 16 }}>
           {FEATURES.map((f) => (
             <FeatureCard key={f.num} {...f} />
           ))}
@@ -429,7 +442,7 @@ export default function NexusDemo() {
 
           {/* two doc panels */}
           <div style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16,
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12, marginBottom: 16,
             transition: "opacity 0.6s 0.2s, transform 0.6s 0.2s",
             opacity: contVisible ? 1 : 0,
             transform: contVisible ? "translateY(0)" : "translateY(20px)",
@@ -487,7 +500,7 @@ export default function NexusDemo() {
       {/* ── confidence scoring ── */}
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
         <div style={{
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start",
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 32, alignItems: "start",
         }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: C.accent, letterSpacing: "0.12em", marginBottom: 12 }}>CONFIDENCE GATING</div>

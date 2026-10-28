@@ -24,7 +24,7 @@ const PIPELINE = [
   { k: "Stream", body: "Spark Structured Streaming validates against JSON Schema contracts and writes to InfluxDB + MongoDB." },
   { k: "Forecast", body: "A GRU seq2seq model (928k params) predicts traffic 15 minutes ahead, with split-conformal uncertainty bands." },
   { k: "Defend", body: "A false-data-injection detector flags spoofed sensors — and its blind spot is published, not hidden." },
-  { k: "Explain", body: "A bilingual EN/FR assistant answers from the live data, with every number checked against its source." },
+  { k: "Explain", body: "A bilingual EN/FR assistant service answers from the data, with every number checked against its source. It is evaluated as a backend service; the public console does not wire it in yet, and says so." },
 ];
 
 const MEASURED = [

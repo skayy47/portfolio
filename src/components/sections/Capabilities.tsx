@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const MARQUEE = [
   "Python", "AWS", "Kubernetes", "PyTorch", "LangChain", "Docker", "FastAPI", "Next.js",
-  "Kafka", "Airflow", "MLflow", "Terraform", "RAG", "Spark", "GCP", "pgvector",
+  "Kafka", "Airflow", "MLflow", "LightGBM", "RAG", "Spark", "GCP", "pgvector",
 ];
 
 export function Capabilities() {

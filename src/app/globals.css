@@ -364,6 +364,8 @@ a {
   white-space: nowrap;
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
   will-change: transform;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn-primary {
   background: var(--ink);

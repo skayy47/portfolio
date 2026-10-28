@@ -48,12 +48,30 @@
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.3s var(--ease);
+  /* Removes the ~300ms tap-delay browsers use to disambiguate a tap from the
+     start of a double-tap-to-zoom gesture — without it, a real touch on this
+     pill can feel unresponsive even though the click does land. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .lens-opt[data-active="true"] {
   color: #fff;
 }
 .lens-opt:not([data-active="true"]):hover {
   color: var(--ink);
+}
+
+/* Below 44px this pill fails the iOS/Android minimum touch-target size, which
+   on a compact two-up segmented control is exactly what causes "I tapped it
+   and nothing happened" — the finger lands just outside the real hit box. */
+@media (pointer: coarse) {
+  .lens-toggle {
+    margin: 1.3rem 0 1.8rem;
+  }
+  .lens-opt {
+    height: 44px;
+    min-width: 96px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

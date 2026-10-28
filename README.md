@@ -13,7 +13,7 @@
 
 A portfolio site that doubles as a showcase engine. Every project card contains a live, interactive illustration — not a screenshot. One click opens the real deployed app.
 
-Five standalone demo pages (`/demo/*`) serve as deep-dive breakdowns — built to share directly on LinkedIn as technical showcase posts.
+Standalone case-study pages (`/work/*`) serve as deep-dive breakdowns — built to share directly on LinkedIn as technical showcase posts.
 
 ---
 
@@ -21,22 +21,22 @@ Five standalone demo pages (`/demo/*`) serve as deep-dive breakdowns — built t
 
 | Project | URL | Description |
 |---------|-----|-------------|
-| Walmart Sales Forecasting | `/demo/walmart` | Time-series BI · animated model benchmark · SVG forecast chart |
-| nexus RAG Engine | `/demo/nexus` | Production RAG · contradiction showcase · confidence gating |
-| MAESTRO Multi-Agent | `/demo/maestro` | Agent DAG visualization · n8n JSON · live SSE pipeline |
+| Walmart Sales Forecasting | `/work/walmart` | Time-series BI · animated model benchmark · SVG forecast chart |
+| nexus RAG Engine | `/work/nexus` | Production RAG · contradiction showcase · confidence gating |
+| MAESTRO Multi-Agent | `/work/maestro` | Agent DAG visualization · n8n JSON · live SSE pipeline |
 
 ---
 
 ## Featured projects
 
 ### AURA — Universal Data Engine
-Full-stack data intelligence platform. Drop any CSV/XLSX/JSON/Parquet → semantic column inference → 8-step cleaning pipeline → grounded AI chat → branded PDF report. Multi-provider AI cascade (Gemini → Groq → OpenAI → Claude). 55/55 tests. Bilingual EN/FR.
+Full-stack data intelligence platform. Drop any CSV/XLSX/JSON/Parquet → semantic column inference → 8-step cleaning pipeline → grounded AI chat → branded PDF report. Provider cascade (Gemini → Groq live, OpenAI/Claude pluggable). 55-check end-to-end overtest. Bilingual EN/FR.
 
 ### nexus — Production RAG Engine
-RAG system supporting 15 document formats. Hybrid BM25 + pgvector retrieval with RRF reranking. Auto-summary on upload. Claim-level answer grounding. Contradiction Radar (structured second LLM call). Knowledge gap detection. 145/145 tests.
+RAG system supporting 15 document formats. Hybrid BM25 + pgvector retrieval with RRF reranking. Auto-summary on upload. Claim-level answer grounding. Contradiction Radar (structured second LLM call). Knowledge gap detection. 147 passing tests.
 
 ### MAESTRO — Multi-Agent Command Center
-LLM-planned agent DAG. Real Tavily search — URLs fetched live, never invented. Deterministic n8n workflow compiler (typed templates, not LLM JSON). Live SSE pipeline streams every agent step. 48/48 tests.
+LLM-planned agent DAG. Real Tavily search — URLs fetched live, never invented. Deterministic n8n workflow compiler (typed templates, not LLM JSON). Live SSE pipeline streams every agent step. 84/84 tests.
 
 ---
 
@@ -49,7 +49,7 @@ Language      TypeScript 5 — strict mode
 Animation     GSAP · @gsap/react · Framer Motion · Lenis
 Styling       Tailwind CSS v4
 Content       Bilingual EN/FR — all strings in src/lib/content.ts
-Themes        5 palettes: aurora · champagne · pearl · sorbet · lagoon
+Themes        6 palettes: aurora · champagne · pearl · sorbet · lagoon · obsidian
 Deploy        Vercel
 ```
 

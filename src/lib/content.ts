@@ -239,7 +239,8 @@ export const CONTENT: Record<Locale, SiteContent> = {
         { year: "2021 – 2022", title: "General Medicine (English)", place: "Ukraine", note: "Studied medicine — interrupted and ended by the war.", kind: "pivot" },
         { year: "2022", title: "Return to Morocco — the pivot", place: "Casablanca", note: "Left medicine behind and chose technology. The real start.", kind: "pivot" },
         { year: "2022 – 2025", title: "Licence — Computer Science", place: "Mundiapolis · Cloud Computing & Security", note: "Bachelor’s in CS, specialising in cloud computing and security.", kind: "edu" },
-        { year: "2026", title: "Engineering — 4th year", place: "ISGA, Casablanca", note: "Just completed the 4th year of the engineering cycle.", kind: "edu" },
+        { year: "2025", title: "AI & Cloud Engineering Intern", place: "B-AGILE, Casablanca", note: "3 months (Jun–Aug): built and deployed a cloud-native AI microservice on Google Cloud — Python, Docker, CI/CD.", kind: "edu" },
+        { year: "2026 – 2027", title: "Engineering — final year", place: "ISGA, Casablanca", note: "UrbanSense, the real-time digital twin, defended Sept 2026 (jury: “excellent work”). 6-month PFE from early February 2027.", kind: "edu" },
         { year: "2027", title: "Ingénieur d’État — AI & Big Data", place: "Graduating", note: "State engineering degree in Artificial Intelligence & Big Data.", kind: "now" },
       ],
     },
@@ -260,13 +261,13 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "A full-stack data intelligence platform. Drop any CSV, XLSX, JSON or Parquet and AURA infers what each column actually is — identifier, measure, dimension, temporal — runs an 8-step cleaning pipeline, builds an archetype-aware explore, answers grounded questions in EN/FR, and exports a fully bilingual (EN/FR) branded PDF report — labels, AI executive summary, insights, charts, and number/date formatting all follow the locale.",
           signature: [
             "Semantic column-role inference — knows an identifier from a measure",
-            "Multi-provider AI cascade — Gemini → Groq → OpenAI → Claude, silent auto-fallback",
-            "Grounded AI chat — pre-computed findings injected as AUTHORITATIVE, exact numbers cited",
+            "Provider cascade — Gemini → Groq live, OpenAI & Claude pluggable, silent auto-fallback",
+            "Grounded AI chat — pre-computed findings injected as AUTHORITATIVE, numbers cited from the real dataframe",
             "Smart deduplication — identifier columns excluded so near-duplicates are actually caught",
             "Branded PDF via Playwright + Jinja2 with server-side SVG charts",
             "Bilingual EN/FR with SSE streaming end-to-end",
           ],
-          metrics: ["55/55 tests", "EN / FR", "Live"],
+          metrics: ["55-check E2E", "EN / FR", "Live"],
         },
         business: {
           kicker: "From a messy file to a finished report",
@@ -298,7 +299,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "Auto-summary on upload — one-liner, 4 bullets, 3 clickable question chips",
             "15 document formats — PDF, DOCX, XLSX, PPTX, CSV, JSON and more",
           ],
-          metrics: ["152 tests", "15 formats", "Live"],
+          metrics: ["147 tests", "15 formats", "Live"],
         },
         business: {
           kicker: "Ask your documents anything",
@@ -329,7 +330,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "Deterministic n8n compiler — valid importable workflows, not LLM JSON",
             "Model fallback chain + warmed showcase replay for reliability",
           ],
-          metrics: ["48/48 tests", "SSE", "Live"],
+          metrics: ["84/84 tests", "SSE", "Live"],
         },
         business: {
           kicker: "Describe the job, get the deliverable",
@@ -355,7 +356,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
       nexus: {
         uploadLabel: "Document uploaded",
         filename: "annual-report.pdf",
-        analyzingLabel: "Analyzing · Groq 70B",
+        analyzingLabel: "Analyzing · Groq GPT-OSS 120B",
         oneLiner: "FY2024: revenue up 18%, EBITDA margin at 24%.",
         bullets: [
           "Q4 revenue $4.2M — record quarter",
@@ -423,7 +424,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
         blurb:
 {
           technical:
-            "End-to-end weekly-sales forecasting across 45 stores — Prophet, XGBoost and SARIMAX, Optuna-tuned with TimeSeriesSplit CV, a Power BI dashboard and a 5-page Streamlit app.",
+            "End-to-end weekly-sales forecasting across 45 stores — five models benchmarked (Prophet, Prophet + regressors, XGBoost with and without feature engineering, SARIMAX), Optuna-tuned with TimeSeriesSplit CV, a 4-page Power BI report and a 5-page Streamlit app.",
           business:
             "Predicts next week’s sales for 45 stores, store by store, within about 2% of what actually happens — with a dashboard a manager can read without help.",
         },
@@ -451,14 +452,14 @@ export const CONTENT: Record<Locale, SiteContent> = {
     ],
     stats: [
       { value: "3", label: "production systems, live" },
-      { value: "48/48", label: "MAESTRO tests green" },
-      { value: "4", label: "provider AI cascade" },
+      { value: "84/84", label: "MAESTRO tests green" },
+      { value: "147", label: "nexus tests passing" },
       { value: "EN · FR", label: "bilingual by default" },
     ],
     contact: {
       eyebrow: "Contact",
       title: { pre: "Let’s build something\n", grad: "that actually ships." },
-      lead: "Open to AI / ML engineering roles and ambitious collaborations. Based in Casablanca, working globally.",
+      lead: "Looking for a 6-month end-of-study internship (PFE) from early February 2027, then AI / ML engineering roles. Based in Casablanca, open to relocation in Morocco and abroad.",
       cta: "Get in touch",
     },
     footer: { quote: "“Every artifact is verifiable. Every system ships.”", built: "Built with Next.js · React Three Fiber · GSAP" },
@@ -523,7 +524,8 @@ export const CONTENT: Record<Locale, SiteContent> = {
         { year: "2021 – 2022", title: "Médecine générale (anglais)", place: "Ukraine", note: "Études de médecine — interrompues et stoppées par la guerre.", kind: "pivot" },
         { year: "2022", title: "Retour au Maroc — le virage", place: "Casablanca", note: "J’ai quitté la médecine pour la technologie. Le vrai départ.", kind: "pivot" },
         { year: "2022 – 2025", title: "Licence — Informatique", place: "Mundiapolis · Cloud Computing & Sécurité", note: "Licence en informatique, option cloud computing et sécurité.", kind: "edu" },
-        { year: "2026", title: "Cycle ingénieur — 4ᵉ année", place: "ISGA, Casablanca", note: "Je viens de terminer la 4ᵉ année du cycle ingénieur.", kind: "edu" },
+        { year: "2025", title: "Stagiaire Ingénierie IA & Cloud", place: "B-AGILE, Casablanca", note: "3 mois (juin–août) : conception et déploiement d’un microservice IA sur Google Cloud — Python, Docker, CI/CD.", kind: "edu" },
+        { year: "2026 – 2027", title: "Cycle ingénieur — dernière année", place: "ISGA, Casablanca", note: "UrbanSense, jumeau numérique temps réel, soutenu en sept. 2026 (jury : « excellent work »). PFE de 6 mois à partir de début février 2027.", kind: "edu" },
         { year: "2027", title: "Ingénieur d’État — IA & Big Data", place: "Diplomation", note: "Diplôme d’ingénieur d’État en Intelligence Artificielle & Big Data.", kind: "now" },
       ],
     },
@@ -544,13 +546,13 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "Une plateforme d’intelligence des données full-stack. Déposez un CSV, XLSX, JSON ou Parquet et AURA déduit ce qu’est réellement chaque colonne — identifiant, mesure, dimension, temporel — exécute un pipeline de nettoyage en 8 étapes, construit une exploration adaptée, répond à des questions ancrées en EN/FR et exporte un rapport PDF de marque entièrement bilingue EN/FR — libellés, résumé exécutif IA, constats, graphiques et formats de nombres/dates suivent la langue.",
           signature: [
             "Inférence sémantique des rôles de colonnes — distingue un identifiant d’une mesure",
-            "Cascade IA multi-fournisseurs — Gemini → Groq → OpenAI → Claude, bascule silencieuse",
+            "Cascade de fournisseurs — Gemini → Groq en ligne, OpenAI & Claude branchables, bascule silencieuse",
             "Chat IA ancré — résultats pré-calculés injectés comme AUTORITÉ, chiffres exacts cités",
             "Déduplication intelligente — colonnes identifiants exclues pour détecter les vrais doublons",
             "PDF de marque via Playwright + Jinja2 avec graphiques SVG côté serveur",
             "Bilingue EN/FR avec streaming SSE de bout en bout",
           ],
-          metrics: ["55/55 tests", "EN / FR", "En ligne"],
+          metrics: ["55 contrôles E2E", "EN / FR", "En ligne"],
         },
         business: {
           kicker: "D’un fichier en désordre à un rapport fini",
@@ -582,7 +584,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "Résumé auto à l’import — phrase clé, 4 bullets, 3 puces de questions cliquables",
             "15 formats de documents — PDF, DOCX, XLSX, PPTX, CSV, JSON et plus",
           ],
-          metrics: ["152 tests", "15 formats", "En ligne"],
+          metrics: ["147 tests", "15 formats", "En ligne"],
         },
         business: {
           kicker: "Interrogez vos documents",
@@ -613,7 +615,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
             "Compilateur n8n déterministe — workflows valides et importables, pas du JSON LLM",
             "Chaîne de repli des modèles + relecture préchauffée pour la fiabilité",
           ],
-          metrics: ["48/48 tests", "SSE", "En ligne"],
+          metrics: ["84/84 tests", "SSE", "En ligne"],
         },
         business: {
           kicker: "Décrivez la tâche, recevez le livrable",
@@ -639,7 +641,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
       nexus: {
         uploadLabel: "Document importé",
         filename: "rapport-annuel.pdf",
-        analyzingLabel: "Analyse · Groq 70B",
+        analyzingLabel: "Analyse · Groq GPT-OSS 120B",
         oneLiner: "2024 : CA +18 %, marge EBITDA à 24 %.",
         bullets: [
           "T4 : 4,2 M€ — trimestre record",
@@ -735,14 +737,14 @@ export const CONTENT: Record<Locale, SiteContent> = {
     ],
     stats: [
       { value: "3", label: "systèmes en production" },
-      { value: "48/48", label: "tests MAESTRO au vert" },
-      { value: "4", label: "fournisseurs IA en cascade" },
+      { value: "84/84", label: "tests MAESTRO au vert" },
+      { value: "147", label: "tests nexus au vert" },
       { value: "EN · FR", label: "bilingue par défaut" },
     ],
     contact: {
       eyebrow: "Contact",
       title: { pre: "Construisons quelque chose\n", grad: "qui livre vraiment." },
-      lead: "Ouvert aux postes d’ingénierie IA / ML et aux collaborations ambitieuses. Basé à Casablanca, je travaille à l’international.",
+      lead: "Je recherche un stage de fin d’études (PFE) de 6 mois à partir de début février 2027, puis des postes d’ingénierie IA / ML. Basé à Casablanca, mobile partout au Maroc et à l’international.",
       cta: "Me contacter",
     },
     footer: { quote: "« Chaque artefact est vérifiable. Chaque système se déploie. »", built: "Conçu avec Next.js · React Three Fiber · GSAP" },

@@ -274,9 +274,9 @@ const COPY = {
       title: "I don't ship demos that die in production.",
       lead: "Three live, tested systems behind this. Click any of them — they're real and running.",
       systems: [
-        { name: "NEXUS", kind: "Production RAG engine", metric: "152 tests · 15 formats", url: "https://nexussss-two.vercel.app" },
+        { name: "NEXUS", kind: "Production RAG engine", metric: "147 tests · 15 formats", url: "https://nexussss-two.vercel.app" },
         { name: "AURA", kind: "Data intelligence platform", metric: "55/55 tests · EN/FR", url: "https://aura-sooty-five-27.vercel.app" },
-        { name: "MAESTRO", kind: "Multi-agent command center", metric: "48/48 tests · live SSE", url: "https://maestro-lac-theta.vercel.app" },
+        { name: "MAESTRO", kind: "Multi-agent command center", metric: "84/84 tests · live SSE", url: "https://maestro-lac-theta.vercel.app" },
       ],
     },
     story: {
@@ -389,9 +389,9 @@ const COPY = {
       title: "Je ne livre pas de démos qui meurent en production.",
       lead: "Trois systèmes en ligne et testés derrière tout ça. Cliquez sur l'un d'eux — ils sont réels et fonctionnels.",
       systems: [
-        { name: "NEXUS", kind: "Moteur RAG de production", metric: "152 tests · 15 formats", url: "https://nexussss-two.vercel.app" },
+        { name: "NEXUS", kind: "Moteur RAG de production", metric: "147 tests · 15 formats", url: "https://nexussss-two.vercel.app" },
         { name: "AURA", kind: "Plateforme d'intelligence data", metric: "55/55 tests · EN/FR", url: "https://aura-sooty-five-27.vercel.app" },
-        { name: "MAESTRO", kind: "Centre multi-agents", metric: "48/48 tests · SSE live", url: "https://maestro-lac-theta.vercel.app" },
+        { name: "MAESTRO", kind: "Centre multi-agents", metric: "84/84 tests · SSE live", url: "https://maestro-lac-theta.vercel.app" },
       ],
     },
     story: {

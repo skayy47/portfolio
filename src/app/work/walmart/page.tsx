@@ -39,7 +39,7 @@ const WHAT = [
   { k: "01", title: "End-to-end pipeline", body: "Merged 3 raw CSVs (sales, features, stores) into a weekly time series across 45 Walmart stores — no leakage, temporal split." },
   { k: "02", title: "Model benchmark", body: "Prophet, XGBoost, and SARIMAX benchmarked head-to-head. Optuna with TimeSeriesSplit CV squeezed Prophet down to 2.17% MAPE." },
   { k: "03", title: "Feature engineering", body: "Lag features, rolling statistics, calendar encodings, interaction terms — 30+ features ranked by XGBoost gain." },
-  { k: "04", title: "Power BI dashboard", body: "9 automated charts (Matplotlib + Seaborn) exported as high-res PNGs. Full Power BI report with direct CSV connectors." },
+  { k: "04", title: "Power BI report", body: "A 4-page report — Executive Overview · Model Comparison · Forecast Outlook & Risk · Forecast Trust & Operational Readiness — with a data model, interactive slicers, a DAX query and Python visuals." },
 ];
 
 /* ─── helpers ──────────────────────────────────────────────────────────────── */
@@ -229,14 +229,14 @@ export default function WalmartDemo() {
         </h1>
 
         <p style={{ fontSize: "clamp(1rem, 2vw, 1.2rem)", color: C.textSub, lineHeight: 1.7, maxWidth: 600, margin: "0 0 48px" }}>
-          End-to-end ML pipeline across 45 stores — three models benchmarked, Optuna-tuned, Power BI dashboard, and a 5-page Streamlit app. Best result: <strong style={{ color: C.accentB }}>2.17% MAPE with Prophet</strong>.
+          End-to-end ML pipeline across 45 stores — five models benchmarked, Optuna-tuned, a 4-page Power BI report, and a 5-page Streamlit app. Best result: <strong style={{ color: C.accentB }}>2.17% MAPE with Prophet</strong>.
         </p>
 
         {/* stat row */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 32, padding: "32px 0", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
           <Stat value={2.17} label="Best MAPE" suffix="%" />
           <Stat value={45} label="Stores" suffix="" />
-          <Stat value={3} label="Models benchmarked" suffix="" />
+          <Stat value={5} label="Models benchmarked" suffix="" />
           <Stat value={9} label="Dashboard charts" suffix="" />
         </div>
       </section>

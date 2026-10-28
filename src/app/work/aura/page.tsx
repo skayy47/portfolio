@@ -175,11 +175,11 @@ export default function AuraCaseStudy() {
     },
     {
       num: "02", icon: "🔁", title: "Four-Provider AI Cascade",
-      body: "Gemini → Groq → OpenAI → Claude, with silent automatic fallback. A rate limit or an outage at one provider does not reach the user as an error; it reaches them as a slightly slower answer.",
+      body: "Gemini → Groq live, with OpenAI and Claude pluggable behind the same interface and silent automatic fallback. A rate limit or an outage at one provider does not reach the user as an error; it reaches them as a slightly slower answer.",
     },
     {
       num: "03", icon: "🔒", title: "Grounded Chat, Not Free Association",
-      body: "Pre-computed findings are injected into the prompt as AUTHORITATIVE. The model cites exact numbers from the actual dataframe instead of inventing plausible ones — the difference between a demo and a tool.",
+      body: "Pre-computed findings are injected into the prompt as AUTHORITATIVE. The model cites numbers from the actual dataframe instead of inventing plausible ones — the difference between a demo and a tool.",
     },
     {
       num: "04", icon: "🌍", title: "Bilingual All the Way Down",
@@ -189,7 +189,7 @@ export default function AuraCaseStudy() {
 
   const TECH = [
     "FastAPI", "Next.js", "TypeScript", "Pandas", "Gemini", "Groq",
-    "OpenAI", "Claude API", "Playwright", "Jinja2", "SSE streaming", "Pytest (55/55)",
+    "OpenAI", "Claude API", "Playwright", "Jinja2", "SSE streaming", "Pytest + 55-check E2E",
   ];
 
   return (
@@ -277,7 +277,7 @@ export default function AuraCaseStudy() {
             { target: 55, suffix: "/55", label: "Tests green" },
             { target: 4, suffix: "", label: "File formats in" },
             { target: 8, suffix: "", label: "Cleaning steps" },
-            { target: 4, suffix: "", label: "AI providers" },
+            { target: 2, suffix: "", label: "AI providers live" },
           ].map((s, i) => (
             <div key={i} style={{ background: C.surface, padding: "36px 20px", textAlign: "center" }}>
               <StatCounter target={s.target} suffix={s.suffix} label={s.label} />

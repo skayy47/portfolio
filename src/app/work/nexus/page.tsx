@@ -224,7 +224,7 @@ export default function NexusDemo() {
 
   const TECH = [
     "FastAPI", "Next.js 14", "LangChain LCEL", "pgvector",
-    "Groq Llama 3.3 70B", "Supabase", "BM25",
+    "Groq GPT-OSS 120B", "Supabase", "BM25",
     "all-MiniLM-L6-v2", "TypeScript", "Framer Motion", "Docker",
     "Hugging Face Spaces", "Vercel", "pytest (147 tests)",
   ];

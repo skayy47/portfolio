@@ -177,8 +177,8 @@ export default function MaestroDemo() {
   ];
 
   const TECH = [
-    "Next.js 14", "TypeScript", "Groq Llama 3.3 70B", "Tavily Search API",
-    "Server-Sent Events", "FastAPI", "Vitest (48/48)", "n8n workflow compiler",
+    "Next.js 14", "TypeScript", "Groq GPT-OSS 120B (Qwen fallback)", "Tavily Search API",
+    "Server-Sent Events", "FastAPI", "Vitest (84/84)", "n8n workflow compiler",
     "Framer Motion", "Vercel", "Model fallback chain", "Showcase replay mode",
   ];
 
@@ -277,7 +277,7 @@ export default function MaestroDemo() {
           gap: 2, background: C.border, border: `1px solid ${C.border}`, borderRadius: 16, overflow: "hidden",
         }}>
           {[
-            { target: 48, suffix: "/48", label: "Tests green" },
+            { target: 84, suffix: "/84", label: "Tests green" },
             { target: 3, suffix: "", label: "Specialist agents" },
             { target: 8, suffix: "", label: "Tavily sources" },
             { target: 1, suffix: "", label: "Verifiable deliverable" },
@@ -426,7 +426,7 @@ export default function MaestroDemo() {
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px", textAlign: "center" }}>
         <div style={{ fontSize: 11, fontWeight: 700, color: C.accentLight, letterSpacing: "0.12em", marginBottom: 12 }}>TECH STACK</div>
         <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, letterSpacing: "-0.8px", margin: "0 0 28px" }}>
-          48 tests green. Every agent verified.
+          84 tests green — then 12 live missions that caught 8 bugs the tests missed.
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
           {TECH.map((t) => (

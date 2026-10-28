@@ -167,7 +167,7 @@ export interface SiteContent {
   };
   stack: { eyebrow: string; title: { pre: string; grad: string }; lead: string; groups: { group: string; items: string[] }[] };
   moreWork: { eyebrow: string; title: { pre: string; grad: string }; lead: string };
-  more: { id: string; name: string; kicker: string; blurb: Record<Lens, string>; metric: string; tech: string[]; liveUrl: string; codeUrl: string }[];
+  more: { id: string; name: string; kicker: string; blurb: Record<Lens, string>; metric: string; tech: string[]; liveUrl: string; codeUrl?: string }[];
   stats: { value: string; label: string }[];
   contact: { eyebrow: string; title: { pre: string; grad: string }; lead: string; cta: string };
   footer: { quote: string; built: string };
@@ -402,11 +402,11 @@ export const CONTENT: Record<Locale, SiteContent> = {
       lead: "From the AI layer down to cloud, MLOps and data engineering — the stack hiring teams actually look for.",
       groups: [
         { group: "Languages", items: STACK_GROUPS(["Python", "TypeScript", "SQL", "JavaScript", "Bash"]) },
-        { group: "AI · LLMs · Agents", items: STACK_GROUPS(["Groq", "Gemini", "Claude API", "OpenAI API", "LangChain", "LlamaIndex", "RAG", "Multi-Agent", "Hugging Face"]) },
+        { group: "AI · LLMs · Agents", items: STACK_GROUPS(["Groq", "Gemini", "Claude API", "OpenAI API", "LangChain", "RAG", "Multi-Agent", "Hugging Face"]) },
         { group: "ML · Data Science", items: STACK_GROUPS(["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "NumPy", "XGBoost", "LightGBM", "SHAP"]) },
-        { group: "MLOps · Pipelines", items: STACK_GROUPS(["MLflow", "Airflow", "Weights & Biases", "DVC", "Docker", "Kubernetes"]) },
-        { group: "Cloud · DevOps", items: STACK_GROUPS(["AWS", "GCP", "Azure", "Terraform", "GitHub Actions", "Vercel"]) },
-        { group: "Data · Vectors", items: STACK_GROUPS(["PostgreSQL", "Spark", "Kafka", "Supabase", "pgvector", "Pinecone", "Redis", "MongoDB"]) },
+        { group: "MLOps · Pipelines", items: STACK_GROUPS(["MLflow", "Airflow", "Docker", "Kubernetes", "CI/CD"]) },
+        { group: "Cloud · DevOps", items: STACK_GROUPS(["GCP", "AWS", "GitHub Actions", "Vercel", "Hugging Face Spaces"]) },
+        { group: "Data · Vectors", items: STACK_GROUPS(["PostgreSQL", "Spark", "Kafka", "Supabase", "pgvector", "MongoDB", "InfluxDB"]) },
         { group: "Backend · Frontend", items: STACK_GROUPS(["FastAPI", "Node.js", "Next.js", "React", "Tailwind"]) },
         { group: "Design · UI/UX", items: STACK_GROUPS(["Figma", "UI / UX", "Design Systems", "Framer", "Wireframing", "Accessibility", "Responsive"]) },
       ],
@@ -414,9 +414,23 @@ export const CONTENT: Record<Locale, SiteContent> = {
     moreWork: {
       eyebrow: "More projects",
       title: { pre: "Beyond the flagships — ", grad: "data, ML, BI." },
-      lead: "Support projects that round out the picture: time-series forecasting, risk modelling and business intelligence.",
+      lead: "Projects that round out the picture: a real-time streaming digital twin, time-series forecasting, risk modelling and business intelligence.",
     },
     more: [
+      {
+        id: "urbansense",
+        name: "UrbanSense — Casablanca Digital Twin",
+        kicker: "Streaming · Forecasting · Evaluated AI",
+        blurb: {
+          technical:
+            "Final-year team project (4 engineers): Kafka + Spark Structured Streaming into InfluxDB/MongoDB, a GRU seq2seq forecaster with split-conformal uncertainty (88.5% coverage at 90% nominal), a false-data-injection detector with its blind spot published, and a bilingual assistant evaluated on a 34-question golden set that rejected two LLMs for inventing numbers. I owned the Next.js + deck.gl console and the assistant.",
+          business:
+            "A live map of Casablanca traffic that predicts congestion 15 minutes ahead, says how sure it is, spots tampered sensors, and answers questions in French or English — without making numbers up. Defended in September 2026; the jury called it “excellent work”.",
+        },
+        metric: "p95 870 ms · MAE 3.07 · 88.5% coverage",
+        tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],
+        liveUrl: "https://urbansense-console.vercel.app",
+      },
       {
         id: "walmart",
         name: "Walmart Sales Forecasting",
@@ -687,11 +701,11 @@ export const CONTENT: Record<Locale, SiteContent> = {
       lead: "De la couche IA jusqu’au cloud, au MLOps et au data engineering — la stack que les recruteurs recherchent vraiment.",
       groups: [
         { group: "Langages", items: STACK_GROUPS(["Python", "TypeScript", "SQL", "JavaScript", "Bash"]) },
-        { group: "IA · LLMs · Agents", items: STACK_GROUPS(["Groq", "Gemini", "Claude API", "OpenAI API", "LangChain", "LlamaIndex", "RAG", "Multi-Agent", "Hugging Face"]) },
+        { group: "IA · LLMs · Agents", items: STACK_GROUPS(["Groq", "Gemini", "Claude API", "OpenAI API", "LangChain", "RAG", "Multi-Agent", "Hugging Face"]) },
         { group: "ML · Data Science", items: STACK_GROUPS(["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "NumPy", "XGBoost", "LightGBM", "SHAP"]) },
-        { group: "MLOps · Pipelines", items: STACK_GROUPS(["MLflow", "Airflow", "Weights & Biases", "DVC", "Docker", "Kubernetes"]) },
-        { group: "Cloud · DevOps", items: STACK_GROUPS(["AWS", "GCP", "Azure", "Terraform", "GitHub Actions", "Vercel"]) },
-        { group: "Data · Vecteurs", items: STACK_GROUPS(["PostgreSQL", "Spark", "Kafka", "Supabase", "pgvector", "Pinecone", "Redis", "MongoDB"]) },
+        { group: "MLOps · Pipelines", items: STACK_GROUPS(["MLflow", "Airflow", "Docker", "Kubernetes", "CI/CD"]) },
+        { group: "Cloud · DevOps", items: STACK_GROUPS(["GCP", "AWS", "GitHub Actions", "Vercel", "Hugging Face Spaces"]) },
+        { group: "Data · Vecteurs", items: STACK_GROUPS(["PostgreSQL", "Spark", "Kafka", "Supabase", "pgvector", "MongoDB", "InfluxDB"]) },
         { group: "Backend · Frontend", items: STACK_GROUPS(["FastAPI", "Node.js", "Next.js", "React", "Tailwind"]) },
         { group: "Design · UI/UX", items: STACK_GROUPS(["Figma", "UI / UX", "Design Systems", "Framer", "Maquettage", "Accessibilité", "Responsive"]) },
       ],
@@ -702,6 +716,20 @@ export const CONTENT: Record<Locale, SiteContent> = {
       lead: "Des projets qui complètent le tableau : prévision de séries temporelles, modélisation du risque et business intelligence.",
     },
     more: [
+      {
+        id: "urbansense",
+        name: "UrbanSense — jumeau numérique de Casablanca",
+        kicker: "Streaming · Prévision · IA évaluée",
+        blurb: {
+          technical:
+            "Projet de fin d’année en équipe (4 ingénieurs) : Kafka + Spark Structured Streaming vers InfluxDB/MongoDB, prévision GRU seq2seq avec incertitude conforme (88,5 % de couverture pour 90 % visés), détecteur d’injection de fausses données avec sa limite publiée, et assistant bilingue évalué sur un golden set de 34 questions qui a rejeté deux LLM inventant des chiffres. J’ai porté la console Next.js + deck.gl et l’assistant.",
+          business:
+            "Une carte en direct du trafic de Casablanca qui prévoit les bouchons à 15 minutes, dit à quel point elle est sûre, repère les capteurs falsifiés et répond en français ou en anglais — sans inventer de chiffres. Soutenu en septembre 2026, avis du jury : « excellent work ».",
+        },
+        metric: "p95 870 ms · MAE 3,07 · couverture 88,5 %",
+        tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],
+        liveUrl: "https://urbansense-console.vercel.app",
+      },
       {
         id: "walmart",
         name: "Prévision des ventes Walmart",

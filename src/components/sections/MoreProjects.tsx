@@ -70,9 +70,11 @@ export function MoreProjects() {
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M5 3l5 5-5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>
                   )}
-                  <a href={m.codeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost more-btn" data-cursor>
-                    {c.ui.source}
-                  </a>
+                  {m.codeUrl && (
+                    <a href={m.codeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost more-btn" data-cursor>
+                      {c.ui.source}
+                    </a>
+                  )}
                 </div>
               </article>
             </Reveal>

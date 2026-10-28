@@ -237,7 +237,7 @@ export default function WalmartDemo() {
           <Stat value={2.17} label="Best MAPE" suffix="%" />
           <Stat value={45} label="Stores" suffix="" />
           <Stat value={5} label="Models benchmarked" suffix="" />
-          <Stat value={9} label="Dashboard charts" suffix="" />
+          <Stat value={4} label="Power BI pages" suffix="" />
         </div>
       </section>
 
@@ -259,14 +259,14 @@ export default function WalmartDemo() {
       <section style={{ padding: "clamp(40px, 6vw, 80px) clamp(20px, 6vw, 80px)", maxWidth: 960, margin: "0 auto" }}>
         <p style={{ fontSize: "0.72rem", color: C.accent, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8 }}>Model benchmark</p>
         <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, marginBottom: 32, letterSpacing: "-0.02em" }}>
-          Four models. One winner.
+          The benchmark. One winner.
         </h2>
         <div ref={modelsRef.ref} style={{ padding: 28, background: C.surface, border: `1px solid ${C.border}`, borderRadius: 16 }}>
           {MODELS.map((m, i) => (
             <ModelBar key={m.name} model={m} maxMae={maxMae} delay={i * 120} visible={modelsRef.visible} />
           ))}
           <p style={{ fontSize: "0.72rem", color: C.muted, marginTop: 16, lineHeight: 1.5 }}>
-            Evaluation window: May – Oct 2012 · 20% holdout · temporal split · no data leakage
+            Evaluation window: May – Oct 2012 · 20% holdout · temporal split · no data leakage · Prophet + regressors (5th model) in the repo
           </p>
         </div>
       </section>
@@ -290,6 +290,7 @@ export default function WalmartDemo() {
         <h2 style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)", fontWeight: 800, marginBottom: 24, letterSpacing: "-0.02em" }}>
           Actual vs Prophet vs future
         </h2>
+        <p style={{ fontSize: "0.75rem", color: C.muted, marginTop: -12, marginBottom: 20 }}>Illustrative shape — the real forecast plots are in the live app.</p>
         <div ref={chartRef.ref} style={{ padding: 28, background: C.surface, border: `1px solid ${C.border}`, borderRadius: 16 }}>
           <ForecastChart visible={chartRef.visible} />
         </div>

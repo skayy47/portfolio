@@ -9,21 +9,25 @@ import Link from "next/link";
  * system, so a var(--ink) here would render invisible.
  */
 
-export const CASE_ORDER = ["aura", "nexus", "maestro", "walmart"] as const;
+export const CASE_ORDER = ["aura", "nexus", "maestro", "urbansense", "walmart", "credit"] as const;
 export type CaseSlug = (typeof CASE_ORDER)[number];
 
 const TITLES: Record<CaseSlug, string> = {
   aura: "AURA",
   nexus: "nexus",
   maestro: "MAESTRO",
+  urbansense: "UrbanSense",
   walmart: "Walmart Sales Forecasting",
+  credit: "Credit Risk",
 };
 
 const KICKERS: Record<CaseSlug, string> = {
   aura: "Universal Data Engine",
   nexus: "Production RAG Engine",
   maestro: "Multi-Agent Command Center",
+  urbansense: "Real-Time Digital Twin",
   walmart: "Time-Series BI + ML",
+  credit: "Calibrated PD Model",
 };
 
 export function CaseNav({ current, accent, border }: { current: CaseSlug; accent: string; border: string }) {

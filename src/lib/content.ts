@@ -423,9 +423,9 @@ export const CONTENT: Record<Locale, SiteContent> = {
         kicker: "Streaming · Forecasting · Evaluated AI",
         blurb: {
           technical:
-            "Final-year team project (4 engineers): Kafka + Spark Structured Streaming into InfluxDB/MongoDB, a GRU seq2seq forecaster with split-conformal uncertainty (88.5% coverage at 90% nominal), a false-data-injection detector with its blind spot published, and a bilingual assistant evaluated on a 34-question golden set that rejected two LLMs for inventing numbers. I owned the Next.js + deck.gl console and the assistant.",
+            "Final-year team project (4 engineers) on Casablanca’s real road network (OSM), with METR-LA traffic dynamics replayed and labelled, and live TomTom ingestion as a second source: Kafka + Spark Structured Streaming into InfluxDB/MongoDB, a GRU seq2seq forecaster with split-conformal uncertainty (88.5% coverage at 90% nominal), a false-data-injection detector with its blind spot published, and a bilingual assistant evaluated on a 34-question golden set that rejected two LLMs for inventing numbers. I owned the Next.js + deck.gl console and the assistant.",
           business:
-            "A live map of Casablanca traffic that predicts congestion 15 minutes ahead, says how sure it is, spots tampered sensors, and answers questions in French or English — without making numbers up. Defended in September 2026; the jury called it “excellent work”.",
+            "A digital twin of Casablanca’s roads that predicts congestion 15 minutes ahead, says how sure it is, spots tampered sensors, and answers questions in French or English — without making numbers up. Defended in September 2026; the jury called it “excellent work”.",
         },
         metric: "p95 870 ms · MAE 3.07 · 88.5% coverage",
         tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],
@@ -722,9 +722,9 @@ export const CONTENT: Record<Locale, SiteContent> = {
         kicker: "Streaming · Prévision · IA évaluée",
         blurb: {
           technical:
-            "Projet de fin d’année en équipe (4 ingénieurs) : Kafka + Spark Structured Streaming vers InfluxDB/MongoDB, prévision GRU seq2seq avec incertitude conforme (88,5 % de couverture pour 90 % visés), détecteur d’injection de fausses données avec sa limite publiée, et assistant bilingue évalué sur un golden set de 34 questions qui a rejeté deux LLM inventant des chiffres. J’ai porté la console Next.js + deck.gl et l’assistant.",
+            "Projet de fin d’année en équipe (4 ingénieurs) sur le vrai réseau routier de Casablanca (OSM), avec la dynamique de trafic METR-LA rejouée et signalée, et l’ingestion TomTom en direct comme seconde source : Kafka + Spark Structured Streaming vers InfluxDB/MongoDB, prévision GRU seq2seq avec incertitude conforme (88,5 % de couverture pour 90 % visés), détecteur d’injection de fausses données avec sa limite publiée, et assistant bilingue évalué sur un golden set de 34 questions qui a rejeté deux LLM inventant des chiffres. J’ai porté la console Next.js + deck.gl et l’assistant.",
           business:
-            "Une carte en direct du trafic de Casablanca qui prévoit les bouchons à 15 minutes, dit à quel point elle est sûre, repère les capteurs falsifiés et répond en français ou en anglais — sans inventer de chiffres. Soutenu en septembre 2026, avis du jury : « excellent work ».",
+            "Un jumeau numérique des routes de Casablanca qui prévoit les bouchons à 15 minutes, dit à quel point elle est sûre, repère les capteurs falsifiés et répond en français ou en anglais — sans inventer de chiffres. Soutenu en septembre 2026, avis du jury : « excellent work ».",
         },
         metric: "p95 870 ms · MAE 3,07 · couverture 88,5 %",
         tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],

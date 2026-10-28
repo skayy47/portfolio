@@ -20,7 +20,7 @@ const CONSOLE = "https://urbansense-console.vercel.app";
 
 /* ─── data — every number from the repo's measured artifacts ───────────────── */
 const PIPELINE = [
-  { k: "Ingest", body: "Kafka (KRaft) topics carry live sensor messages from Casablanca road segments." },
+  { k: "Ingest", body: "Kafka (KRaft) carries sensor messages for 207 sensors placed on the real Casablanca road network (OpenStreetMap). Traffic dynamics are replayed from METR-LA, a real academic dataset — labelled as such in the UI — with live TomTom Casablanca traffic as an optional second source." },
   { k: "Stream", body: "Spark Structured Streaming validates against JSON Schema contracts and writes to InfluxDB + MongoDB." },
   { k: "Forecast", body: "A GRU seq2seq model (928k params) predicts traffic 15 minutes ahead, with split-conformal uncertainty bands." },
   { k: "Defend", body: "A false-data-injection detector flags spoofed sensors — and its blind spot is published, not hidden." },
@@ -31,7 +31,7 @@ const MEASURED = [
   { label: "emit → store p50", value: "260 ms" },
   { label: "emit → store p95", value: "870 ms" },
   { label: "messages inside the 2 s budget", value: "8,280 / 8,280" },
-  { label: "GRU MAE @15 min", value: "3.07 mph" },
+  { label: "GRU MAE @15 min (METR-LA)", value: "3.07 mph" },
   { label: "published FC-LSTM baseline", value: "3.44 mph" },
   { label: "conformal coverage (90% nominal)", value: "88.5%" },
 ];
@@ -78,11 +78,11 @@ export default function UrbanSenseCase() {
 
         <h1 style={{ fontSize: "clamp(2.4rem, 7vw, 5rem)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 24px" }}>
           UrbanSense<br />
-          <span style={{ color: C.accent }}>Casablanca, in real time</span>
+          <span style={{ color: C.accent }}>A digital twin for Casablanca</span>
         </h1>
 
         <p style={{ fontSize: "clamp(1rem, 2vw, 1.2rem)", color: C.textSub, lineHeight: 1.7, maxWidth: 640, margin: "0 0 48px" }}>
-          A real-time digital twin of Casablanca traffic: Kafka and Spark streaming, a GRU forecaster with honest uncertainty, an attack detector, and a bilingual assistant that is not allowed to invent numbers. Final-year team project (4 engineers), defended September 2026 — jury verdict: <strong style={{ color: C.accentB }}>“excellent work”</strong>.
+          A real-time digital twin on Casablanca’s real road network: Kafka and Spark streaming, a GRU forecaster with honest uncertainty, an attack detector, and a bilingual assistant that is not allowed to invent numbers. Casablanca has no open real-time traffic feed, so the dynamics are replayed from METR-LA (labelled everywhere), with live TomTom data as an optional source. Final-year team project (4 engineers), defended September 2026 — jury verdict: <strong style={{ color: C.accentB }}>“excellent work”</strong>.
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 32, padding: "32px 0", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
@@ -154,10 +154,10 @@ export default function UrbanSenseCase() {
       {/* ── CTA ── */}
       <section style={{ padding: "clamp(60px, 8vw, 100px) clamp(20px, 6vw, 80px)", maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
         <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 16 }}>
-          Watch the city move.
+          Explore the twin.
         </h2>
         <p style={{ color: C.textSub, marginBottom: 40, fontSize: "1rem" }}>
-          The console replays recorded sensor traffic on the live map. The source is a private team repository — available on request.
+          The console replays the labelled METR-LA traffic on Casablanca’s real streets. The source is a private team repository — available on request.
         </p>
         <a href={CONSOLE} target="_blank" rel="noopener noreferrer"
           style={{ padding: "14px 32px", background: C.accent, color: "#000", borderRadius: 8, fontWeight: 800, textDecoration: "none", fontSize: "0.95rem", letterSpacing: "0.02em" }}>

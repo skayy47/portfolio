@@ -189,25 +189,29 @@ export default function MaestroDemo() {
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 28px", height: 56,
+        flexWrap: "wrap", rowGap: 8,
+        // Never let the wordmark or the CTA pair wrap mid-text — on a narrow
+        // phone the whole pair drops to its own row instead. minHeight, not
+        // height, so the box can grow when it does.
+        padding: "12px 28px", minHeight: 56,
         background: "rgba(5,8,16,0.85)", backdropFilter: "blur(16px)",
         borderBottom: `1px solid ${C.border}`,
       }}>
-        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em" }}>
+        <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: C.textSec, textDecoration: "none", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>
           ← SKAY · PORTFOLIO
         </Link>
         <div style={{ display: "flex", gap: 12 }}>
           <a
             href="https://maestro-lac-theta.vercel.app"
             target="_blank" rel="noopener noreferrer"
-            style={{ padding: "7px 16px", background: C.accent, borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none" }}
+            style={{ padding: "11px 16px", background: C.accent, borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}
           >
             Open Live App ↗
           </a>
           <a
             href="https://github.com/skayy47/maestro"
             target="_blank" rel="noopener noreferrer"
-            style={{ padding: "7px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none" }}
+            style={{ padding: "11px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, color: C.textSec, textDecoration: "none", whiteSpace: "nowrap" }}
           >
             GitHub
           </a>
@@ -293,7 +297,7 @@ export default function MaestroDemo() {
             Real orchestration. Not prompt chains.
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 16 }}>
           {FEATURES.map((f) => <FeatureCard key={f.num} {...f} />)}
         </div>
       </section>
@@ -322,7 +326,7 @@ export default function MaestroDemo() {
           <FlowArrow active={dagVisible} delay={1400} />
 
           {/* three agents */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12 }}>
             {[
               { name: "Research", color: C.accent, role: "Tavily · 8 live sources", delay: 1600 },
               { name: "Data", color: C.teal, role: "CSV · live stats", delay: 1800 },
@@ -350,7 +354,7 @@ export default function MaestroDemo() {
           <p style={{ fontSize: 15, color: C.textSec, margin: 0 }}>Each agent streams its work live. Watch it think.</p>
         </div>
 
-        <div ref={agentsRef} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+        <div ref={agentsRef} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 14 }}>
           <AgentCard
             name="Research" role="Tavily Search API · real-time web"
             color={C.accent} active={agentsVisible} delay={0}
@@ -371,7 +375,7 @@ export default function MaestroDemo() {
 
       {/* ── n8n output showcase ── */}
       <section style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 32, alignItems: "start" }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: C.emerald, letterSpacing: "0.12em", marginBottom: 12 }}>DETERMINISTIC COMPILER</div>
             <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, letterSpacing: "-0.8px", margin: "0 0 16px" }}>

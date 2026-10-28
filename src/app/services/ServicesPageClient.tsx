@@ -568,7 +568,7 @@ export default function ServicesPageClient() {
               <p style={{ fontSize: 16, color: C.textSec, lineHeight: 1.7, margin: 0 }}>{t.pain.lead}</p>
             </div>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%), 1fr))", gap: 16 }}>
             {t.pain.items.map((it, i) => (
               <Reveal key={i} delay={i * 90}>
                 <div className="svcCard" style={{ background: C.card, border: `1px solid ${C.borderSoft}`, borderRadius: 18, padding: "28px 26px", height: "100%" }}>
@@ -623,7 +623,7 @@ export default function ServicesPageClient() {
               <Eyebrow color={C.hotSoft}>{t.demo.contraEyebrow}</Eyebrow>
               <h3 style={{ fontSize: "clamp(18px,3vw,24px)", fontWeight: 800, letterSpacing: "-0.5px", margin: "0 0 16px" }}>{t.demo.contraTitle}</h3>
               <div style={{ fontSize: 13, color: C.textMuted, marginBottom: 14 }}>Q: <span style={{ color: C.textPrimary, fontStyle: "italic" }}>&ldquo;{t.demo.contraQ}&rdquo;</span></div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 12, marginBottom: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%), 1fr))", gap: 12, marginBottom: 14 }}>
                 {[{ doc: t.demo.docA, val: t.demo.docAval, text: t.demo.docAtext }, { doc: t.demo.docB, val: t.demo.docBval, text: t.demo.docBtext }].map((d, i) => (
                   <div key={i} className="svcCard" style={{ background: C.card, border: `1px solid ${C.borderSoft}`, borderRadius: 14, padding: "20px 20px" }}>
                     <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 8, fontFamily: "monospace" }}>{d.doc}</div>
@@ -652,7 +652,7 @@ export default function ServicesPageClient() {
                 <Eyebrow>{t.demo.splitEyebrow}</Eyebrow>
                 <h3 style={{ fontSize: "clamp(18px,3vw,24px)", fontWeight: 800, letterSpacing: "-0.5px", margin: 0 }}>{t.demo.splitTitle}</h3>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(260px, 100%), 1fr))", gap: 14 }}>
                 <div className="svcCard" style={{ background: `linear-gradient(160deg, ${C.crimsonDim}, ${C.card} 55%)`, border: `1px solid rgba(239,62,24,0.5)`, borderRadius: 16, padding: "22px 22px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12, fontSize: 12, fontWeight: 700, color: C.hotSoft, letterSpacing: "0.06em" }}><XMark /> {t.demo.genericLabel}</div>
                   <div style={{ fontSize: 15, color: C.textSec, lineHeight: 1.6, marginBottom: 10 }}>{t.demo.genericAnswer}</div>
@@ -677,7 +677,7 @@ export default function ServicesPageClient() {
                 <Eyebrow>{t.offer.eyebrow}</Eyebrow>
                 <h2 style={{ fontSize: "clamp(26px,4vw,36px)", fontWeight: 900, letterSpacing: "-1px", margin: "0 0 12px" }}>{t.offer.title}</h2>
                 <p style={{ fontSize: 16, color: C.textSec, lineHeight: 1.7, margin: "0 0 26px", maxWidth: 620 }}>{t.offer.lead}</p>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "11px 22px", marginBottom: 30 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(280px, 100%), 1fr))", gap: "11px 22px", marginBottom: 30 }}>
                   {t.offer.stack.map((s, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: C.textPrimary, lineHeight: 1.5 }}>
                       <span style={{ flexShrink: 0, marginTop: 2 }}><Check /></span>{s}
@@ -705,7 +705,7 @@ export default function ServicesPageClient() {
               <h2 style={{ fontSize: "clamp(24px,4vw,34px)", fontWeight: 800, letterSpacing: "-0.8px", margin: 0 }}>{t.how.title}</h2>
             </div>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%), 1fr))", gap: 16 }}>
             {t.how.steps.map((s, i) => (
               <Reveal key={i} delay={i * 90}>
                 <div className="svcCard" style={{ background: C.card, border: `1px solid ${C.borderSoft}`, borderRadius: 18, padding: "28px 26px", height: "100%" }}>
@@ -727,7 +727,7 @@ export default function ServicesPageClient() {
               <p style={{ fontSize: 16, color: C.textSec, lineHeight: 1.7, margin: 0 }}>{t.proof.lead}</p>
             </div>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%), 1fr))", gap: 14 }}>
             {t.proof.systems.map((s, i) => (
               <Reveal key={i} delay={i * 80}>
                 <a href={s.url} target="_blank" rel="noopener noreferrer" className="svcCard" style={{ display: "block", background: C.card, border: `1px solid ${C.borderSoft}`, borderRadius: 16, padding: "24px 24px", textDecoration: "none", height: "100%" }}>

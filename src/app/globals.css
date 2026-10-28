@@ -357,8 +357,15 @@ a {
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
+  /* height is fixed, so wrapped text doesn't grow the pill -- it just spills
+     out of it (visible overflow, no clipping), landing on whatever sits
+     below. Caught on .nav-cta ("Let's talk") at 320px, but the fix belongs
+     on the shared class: no button label on this site is meant to wrap. */
+  white-space: nowrap;
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
   will-change: transform;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn-primary {
   background: var(--ink);
@@ -1035,6 +1042,11 @@ body[data-cursor-ready] .cursor-dot {
   background: transparent;
   border: none;
   cursor: pointer;
+  /* The visible .scroll-cue pill inside is 26x42 — real, but too narrow a
+     target. Padding grows the tappable box to a comfortable size without
+     changing the pill's own look; translateX(-50%) still centers the
+     padded box, so the pill doesn't visually shift. */
+  padding: 4px 10px;
 }
 @media (max-width: 900px) {
   .hero-canvas {
@@ -1418,7 +1430,7 @@ html[data-lens-pending] .demo-caption {
 /* ---- Capabilities ------------------------------------------------ */
 .cap-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: 1rem;
 }
 .cap-card {
@@ -1563,8 +1575,13 @@ html[data-lens-pending] .demo-caption {
 .lang-opt {
   position: relative;
   z-index: 1;
-  width: 33px;
-  height: 25px;
+  /* Was 33x25 — a real tap-accuracy risk at 25px tall. Still short of the
+     44px floor (two of these sit flush against each other with zero gap,
+     so there's no free horizontal room to expand into without the hit
+     areas overlapping), but 38x36 is a large, deliberate step toward it
+     and now sits close to nav-cta's 43.2px height beside it. */
+  width: 38px;
+  height: 36px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -1582,15 +1599,15 @@ html[data-lens-pending] .demo-caption {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 33px;
-  height: 25px;
+  width: 38px;
+  height: 36px;
   border-radius: 99px;
   background: var(--ink);
   z-index: 0;
   transition: transform 0.4s var(--ease);
 }
 .lang-thumb[data-pos="fr"] {
-  transform: translateX(33px);
+  transform: translateX(38px);
 }
 
 /* ================================================================== *
@@ -2542,6 +2559,24 @@ html[data-lens-pending] .demo-caption {
 }
 @media (max-width: 800px) {
   .more-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ================================================================== *
+ *  Case-study foot nav (src/components/sections/CaseNav.tsx)
+ *  This nav renders on the four dark, off-token /work/* pages, so its
+ *  colours stay hardcoded hex to match its siblings rather than switching
+ *  to var(--accent) etc. Only the responsive grid behaviour lives here.
+ * ================================================================== */
+.case-nav {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+@media (max-width: 640px) {
+  .case-nav {
+    /* The "next project" column is an auto track sized to its own
+       max-content width -- at a phone width a project title like "Walmart
+       Sales Forecasting ->" wanted its full ~300px, leaving the back link
+       6px wide. Stacking removes the fight over shared width entirely. */
     grid-template-columns: 1fr;
   }
 }

@@ -33,10 +33,15 @@ export function CaseNav({ current, accent, border }: { current: CaseSlug; accent
   return (
     <nav
       aria-label="Case study navigation"
+      // gridTemplateColumns moves to .case-nav in globals.css on purpose: an
+      // inline style always wins the cascade, so a responsive override in CSS
+      // could never reach it from here. This is what let the "auto" column
+      // (the next-project block) claim its full max-content width on a phone
+      // and squeeze the back link down to 6px.
+      className="case-nav"
       style={{
         borderTop: `1px solid ${border}`,
         display: "grid",
-        gridTemplateColumns: "minmax(0, 1fr) auto",
         alignItems: "center",
         gap: 24,
         padding: "clamp(32px, 6vw, 64px) clamp(20px, 6vw, 80px)",

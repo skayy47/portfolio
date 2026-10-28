@@ -15,8 +15,12 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 14px;
-  padding: 0;
+  /* Padding does the real work here: text stays 12px, but the hit target
+     clears the 44px touch-target floor. margin-top is trimmed by roughly
+     what padding-top now adds, so the visible text barely shifts. */
+  margin-top: 4px;
+  margin-left: -4px;
+  padding: 13px 4px;
   background: none;
   border: 0;
   cursor: pointer;

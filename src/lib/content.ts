@@ -430,6 +430,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
         metric: "p95 870 ms · MAE 3.07 · 88.5% coverage",
         tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],
         liveUrl: "https://urbansense-console.vercel.app",
+        codeUrl: "https://github.com/skayy47/urbansense-showcase",
       },
       {
         id: "walmart",
@@ -729,6 +730,7 @@ export const CONTENT: Record<Locale, SiteContent> = {
         metric: "p95 870 ms · MAE 3,07 · couverture 88,5 %",
         tech: ["Kafka", "Spark", "PyTorch", "Next.js", "deck.gl"],
         liveUrl: "https://urbansense-console.vercel.app",
+        codeUrl: "https://github.com/skayy47/urbansense-showcase",
       },
       {
         id: "walmart",

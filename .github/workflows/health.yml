@@ -1,0 +1,103 @@
+name: Weekly portfolio health
+
+# Every Monday, open every link a recruiter can click and fail loudly if one is
+# broken: pages, live demos, demo backends (with a real answer, not just a 200),
+# and the two Streamlit apps (which must not be showing their sleep screen).
+# A failure opens a GitHub issue, so it reaches the owner by email.
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.48.0
+          python -m playwright install --with-deps chromium
+      - name: Check every public surface
+        id: check
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          from playwright.sync_api import sync_playwright
+
+          def get(url, timeout=60):
+              req = urllib.request.Request(url, headers={"User-Agent": "portfolio-health"})
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return r.status, r.read().decode("utf-8", "replace")
+
+          results = []
+          def check(name, fn):
+              try:
+                  ok, note = fn()
+              except Exception as e:  # report, never crash the whole run
+                  ok, note = False, f"{type(e).__name__}: {e}"[:160]
+              results.append((ok, name, note))
+
+          pages = ["/", "/work/aura", "/work/nexus", "/work/maestro", "/work/urbansense",
+                   "/work/walmart", "/work/credit", "/services"]
+          for p in pages:
+              check(f"portfolio {p}", lambda p=p: (get("https://skay-portfolio.vercel.app" + p)[0] == 200, "200"))
+          for name, url in [("nexus app", "https://nexussss-two.vercel.app"),
+                            ("maestro app", "https://maestro-lac-theta.vercel.app"),
+                            ("aura app", "https://aura-sooty-five-27.vercel.app"),
+                            ("urbansense console", "https://urbansense-console.vercel.app")]:
+              check(name, lambda url=url: (get(url)[0] == 200, "200"))
+
+          def nexus_api():
+              s, body = get("https://skay00-nexus-backend.hf.space/health", timeout=120)
+              d = json.loads(body)
+              return d.get("status") == "ok" and d.get("indexed_chunks", 0) > 0, body[:120]
+          check("nexus backend", nexus_api)
+
+          def aura_api():
+              s, body = get("https://skay00-aura-backend.hf.space/health", timeout=120)
+              return json.loads(body).get("status") == "ok", body[:120]
+          check("aura backend", aura_api)
+
+          def streamlit(url):
+              with sync_playwright() as p:
+                  page = p.chromium.launch().new_page()
+                  page.goto(url, wait_until="domcontentloaded", timeout=90_000)
+                  page.wait_for_timeout(8_000)
+                  wake = page.get_by_role("button", name="Yes, get this app back up!")
+                  if wake.count():
+                      wake.click()
+                      page.wait_for_timeout(60_000)
+                      return True, "was asleep, woken"
+                  return True, "awake"
+          check("credit-risk streamlit", lambda: streamlit("https://credit-risk-prediction-skay.streamlit.app"))
+          check("walmart streamlit", lambda: streamlit("https://walmart-sales-forecasting-skay.streamlit.app"))
+
+          lines = [f"| {'✅' if ok else '❌'} | {name} | {note} |" for ok, name, note in results]
+          report = "| | Surface | Note |\n|---|---|---|\n" + "\n".join(lines)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(report + "\n")
+          with open("report.md", "w") as f:
+              f.write(report + "\n")
+          failed = [n for ok, n, _ in results if not ok]
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"failed={len(failed)}\n")
+          print(report)
+          PY
+      - name: Open an issue if anything is broken
+        if: steps.check.outputs.failed != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --repo "${{ github.repository }}" \
+            --title "Portfolio health: ${{ steps.check.outputs.failed }} surface(s) down ($(date -u +%F))" \
+            --body-file report.md
+          exit 1
